@@ -1,9 +1,9 @@
 package pl.adamboguszewski.transactionservice.application;
 
-import pl.adamboguszewski.transactionservice.service.TransactionRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.adamboguszewski.transactionservice.service.api.TransactionRequest;
 
 @RestController
 @RequestMapping

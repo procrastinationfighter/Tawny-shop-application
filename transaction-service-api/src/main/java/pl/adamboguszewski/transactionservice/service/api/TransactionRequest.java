@@ -1,4 +1,4 @@
-package pl.adamboguszewski.transactionservice.service;
+package pl.adamboguszewski.transactionservice.service.api;
 
 import org.springframework.stereotype.Service;
 
