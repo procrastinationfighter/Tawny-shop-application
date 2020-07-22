@@ -1,4 +1,4 @@
-package com.example.transactionservice.application;
+package pl.adamboguszewski.transactionservice.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

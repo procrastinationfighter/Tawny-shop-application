@@ -1,7 +1,5 @@
-package com.example.transactionservice.service;
+package pl.adamboguszewski.transactionservice.service.api;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
 @Service
