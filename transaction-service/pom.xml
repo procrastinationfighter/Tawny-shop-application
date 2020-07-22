@@ -4,20 +4,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.1.RELEASE</version>
+        <groupId>pl.adamboguszewski</groupId>
+        <artifactId>tawny-shop-application</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <!-- [TODO]: Import our root application pom as parent instead of spring-boot-starter-parent, we will 'inherit' spring boot -->
 
-    <groupId>com.example</groupId>
-    <!-- [TODO]: Same as in root pom.xml -->
     <artifactId>transaction-service</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${project.version}</version>
     <name>transaction-service</name>
-    <description>Demo project for Spring Boot</description>
-    <!-- [TODO]: Create description (api module for transaction-service or something) -->
+    <description>Service for making transactions.</description>
 
     <properties>
         <java.version>1.8</java.version>
@@ -25,46 +21,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.example</groupId>
+            <groupId>pl.adamboguszewski</groupId>
             <artifactId>transaction-service-api</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.0-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- [TODO]: Remember that we will 'inherit' dependencies and plugins from root, remove duplicates -->
-
-        <!-- [TODO]: Ctrl+Alt+L fixes code formatting in file, you can use it to remove whitelines etc -->
-
-
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

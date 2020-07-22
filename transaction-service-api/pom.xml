@@ -4,43 +4,20 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.1.RELEASE</version>
+        <groupId>pl.adamboguszewski</groupId>
+        <artifactId>tawny-shop-application</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <!-- [TODO]: Import our root application pom as parent instead of spring-boot-starter-parent, we will 'inherit' spring boot -->
 
-    <groupId>com.example</groupId>
-    <!-- [TODO]: Same as in root pom.xml -->
     <artifactId>transaction-service-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>transaction-service-api</name>
-    <description>Demo project for Spring Boot</description>
-    <!-- [TODO]: Create description (api module for transaction-service or something) -->
+    <description>API module for transaction-service.</description>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
-    <!-- [TODO]: Remember that we will 'inherit' dependencies from root, remove duplicates -->
-    <!-- [TODO]: Also we won't test this module so spring-boot-starter-test is redundant -->
 </project>

@@ -4,15 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- [TODO]: Import spring-boot-starter-parent as parent -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.1.RELEASE</version>
+    </parent>
 
-    <groupId>org.example</groupId>
-    <!-- [TODO]: Set your groupId like you are the one-man-company, for example if company site is company.com.pl, so groupId should be pl.com.company -->
-    <!-- [TODO]: All your private projects should have the same groupId -->
-    <artifactId>Tawny</artifactId>
-    <!-- [TODO]: Match artifactId with your application name, lowercase -->
+    <groupId>pl.adamboguszewski</groupId>
+    <artifactId>tawny-shop-application</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <!-- [TODO]: No <name> and <description> -->
+    <name>tawny-shop-application</name>
+    <description>Simple shop application.</description>
 
     <packaging>pom</packaging>
 
@@ -21,9 +23,40 @@
         <module>transaction-service</module>
     </modules>
 
-    <!-- [TODO]: Here should be all dependencies used by every module in this project, look for every module pom file and check if you can insert dependency here -->
-    <!-- [TODO]: Every module will 'inherit' dependencies from parent (to do this we will set this pom file as parent for all modules) -->
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
 
-    <!-- [TODO]: Same thing with plugins, delete spring-boot-maven-plugin from transaction-service and add it here -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>
