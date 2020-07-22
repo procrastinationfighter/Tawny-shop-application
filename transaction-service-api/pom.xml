@@ -2,17 +2,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.3.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <!-- [TODO]: Import our root application pom as parent instead of spring-boot-starter-parent, we will 'inherit' spring boot -->
+
     <groupId>com.example</groupId>
+    <!-- [TODO]: Same as in root pom.xml -->
     <artifactId>transaction-service-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>transaction-service-api</name>
     <description>Demo project for Spring Boot</description>
+    <!-- [TODO]: Create description (api module for transaction-service or something) -->
 
     <properties>
         <java.version>1.8</java.version>
@@ -36,5 +41,6 @@
             </exclusions>
         </dependency>
     </dependencies>
-
+    <!-- [TODO]: Remember that we will 'inherit' dependencies from root, remove duplicates -->
+    <!-- [TODO]: Also we won't test this module so spring-boot-starter-test is redundant -->
 </project>
