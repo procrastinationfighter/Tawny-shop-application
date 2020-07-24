@@ -2,6 +2,8 @@ package pl.adamboguszewski.transactionservice.service.api;
 
 import org.springframework.stereotype.Service;
 
+// [TODO]: This is a create transaction request, implement info needed to create a transaction
+// [TODO]: Also look for a more proper class name, the hint is above
 @Service
 public class TransactionRequest {
 
