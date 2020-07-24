@@ -2,6 +2,7 @@ package pl.adamboguszewski.transactionservice.service.api;
 
 import org.springframework.stereotype.Service;
 
+// [TODO]: Lombok
 @Service
 public class TransactionRequest {
 
