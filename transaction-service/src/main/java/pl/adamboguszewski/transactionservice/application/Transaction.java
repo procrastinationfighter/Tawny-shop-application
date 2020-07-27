@@ -16,7 +16,7 @@ public class Transaction {
         this.products = new ArrayList<>();
         for(Product product : products) {
             this.products.add(product);
-            totalPrice += product.getPrice();
+            totalPrice += product.getPriceMultiplier();
         }
     }
 
@@ -30,7 +30,7 @@ public class Transaction {
 
     public void addProduct(Product product) {
         products.add(product);
-        totalPrice += product.getPrice();
+        totalPrice += product.getPriceMultiplier();
     }
 
 }

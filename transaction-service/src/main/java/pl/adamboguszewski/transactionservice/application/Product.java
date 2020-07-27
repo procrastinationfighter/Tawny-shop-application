@@ -4,22 +4,32 @@ public class Product {
 
     private final String id;
 
-    private double price;
+    private final long priceMultiplier;
 
-    public Product(String id, double price) {
+    private final long quantity;
+
+    private final long totalPrice;
+
+    public Product(String id, long priceMultiplier, long quantity, long totalPrice) {
         this.id = id;
-        this.price = price;
+        this.priceMultiplier = priceMultiplier;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
     }
 
     public String getId() {
         return id;
     }
 
-    public double getPrice() {
-        return price;
+    public long getPriceMultiplier() {
+        return priceMultiplier;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public long getQuantity() {
+        return quantity;
+    }
+
+    public long getTotalPrice() {
+        return totalPrice;
     }
 }
