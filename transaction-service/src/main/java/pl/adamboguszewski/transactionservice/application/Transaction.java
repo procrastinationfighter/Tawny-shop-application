@@ -28,9 +28,4 @@ public class Transaction {
         return id;
     }
 
-    public void addProduct(Product product) {
-        products.add(product);
-        totalPrice += product.getPriceMultiplier();
-    }
-
 }
