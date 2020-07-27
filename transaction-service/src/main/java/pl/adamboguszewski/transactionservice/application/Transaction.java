@@ -28,4 +28,9 @@ public class Transaction {
     public String getId() {
         return id;
     }
+
+    public void addProduct(Product product) {
+        products.add(product);
+        totalPrice += product.getPrice();
+    }
 }
