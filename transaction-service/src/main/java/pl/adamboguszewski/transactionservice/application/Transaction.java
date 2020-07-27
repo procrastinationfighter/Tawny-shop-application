@@ -3,7 +3,6 @@ package pl.adamboguszewski.transactionservice.application;
 import java.util.ArrayList;
 import java.util.List;
 
-// [TODO]: Imagine you make a transaction in the shop or somewhere. Create transaction model class which will represent every information needed (for example list of products)
 public class Transaction {
 
     private final List<Product> products;
@@ -33,4 +32,5 @@ public class Transaction {
         products.add(product);
         totalPrice += product.getPrice();
     }
+
 }
