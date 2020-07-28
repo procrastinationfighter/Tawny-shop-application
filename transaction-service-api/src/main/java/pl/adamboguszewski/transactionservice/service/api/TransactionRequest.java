@@ -1,8 +1,5 @@
 package pl.adamboguszewski.transactionservice.service.api;
 
-import org.springframework.stereotype.Service;
-
-@Service
 public class TransactionRequest {
 
     private final String id;
