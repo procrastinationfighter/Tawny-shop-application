@@ -21,6 +21,7 @@ public class Transaction {
 
     public Transaction(List<Product> products, Long id, UUID transactionId,
                        Long totalPrice, String checkoutId, LocalDateTime transactionTime) {
+        // [TODO]: If product has a list with objects like this transaction, this will cause problems.
         this.id = id;
         this.products = new ArrayList<>();
         this.products.addAll(products);
