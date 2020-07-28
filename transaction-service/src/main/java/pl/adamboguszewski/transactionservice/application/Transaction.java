@@ -1,6 +1,5 @@
 package pl.adamboguszewski.transactionservice.application;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -17,10 +16,10 @@ public class Transaction {
 
     private final String checkoutId;
 
-    private final LocalDateTime transactionTime;
+    private final TransactionInfo transactionInfo;
 
     public Transaction(List<Product> products, Long id, UUID transactionId,
-                       Long totalPrice, String checkoutId, LocalDateTime transactionTime) {
+                       Long totalPrice, String checkoutId, TransactionInfo transactionInfo) {
         // [TODO]: If product has a list with objects like this transaction, this will cause problems.
         this.id = id;
         this.products = new ArrayList<>();
@@ -28,7 +27,7 @@ public class Transaction {
         this.transactionId = transactionId;
         this.totalPrice = totalPrice;
         this.checkoutId = checkoutId;
-        this.transactionTime = transactionTime;
+        this.transactionInfo = transactionInfo;
     }
 
     public List<Product> getProducts() {
@@ -51,7 +50,7 @@ public class Transaction {
         return checkoutId;
     }
 
-    public LocalDateTime getTransactionTime() {
-        return transactionTime;
+    public TransactionInfo getTransactionInfo() {
+        return transactionInfo;
     }
 }
