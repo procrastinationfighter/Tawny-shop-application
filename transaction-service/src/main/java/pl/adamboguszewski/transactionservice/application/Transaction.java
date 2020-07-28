@@ -11,7 +11,7 @@ public class Transaction {
 
     private final Long totalPrice;
 
-    private final String transactionId;
+    private final String id;
 
     private final String checkoutId;
 
@@ -19,10 +19,10 @@ public class Transaction {
 
     private final LocalDate transactionDate;
 
-    public Transaction(List<Product> products, String transactionId,
+    public Transaction(List<Product> products, String id,
                        Long totalPrice, String checkoutId,
                        LocalTime transactionTime, LocalDate transactionDate) {
-        this.transactionId = transactionId;
+        this.id = id;
         this.products = new ArrayList<>();
         this.products.addAll(products);
         this.totalPrice = totalPrice;
@@ -39,8 +39,8 @@ public class Transaction {
         return totalPrice;
     }
 
-    public String getTransactionId() {
-        return transactionId;
+    public String getId() {
+        return id;
     }
 
     public String getCheckoutId() {
