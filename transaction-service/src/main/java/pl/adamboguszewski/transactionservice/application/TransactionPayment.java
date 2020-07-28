@@ -18,11 +18,15 @@ public class TransactionPayment {
 
     private final Currency currency;
 
+    private final Long multiplier;
+
     private final PaymentType paymentType;
 
-    public TransactionPayment(Long amount, Currency currency, PaymentType paymentType) {
+    public TransactionPayment(Long amount, Currency currency,
+                              Long multiplier, PaymentType paymentType) {
         this.amount = amount;
         this.currency = currency;
+        this.multiplier = multiplier;
         this.paymentType = paymentType;
     }
 
@@ -32,6 +36,10 @@ public class TransactionPayment {
 
     public Currency getCurrency() {
         return currency;
+    }
+
+    public Long getMultiplier() {
+        return multiplier;
     }
 
     public PaymentType getPaymentType() {

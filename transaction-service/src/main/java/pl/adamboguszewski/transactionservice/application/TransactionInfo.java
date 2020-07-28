@@ -15,6 +15,7 @@ public class TransactionInfo {
 
     public TransactionInfo(LocalDateTime transactionDateTime, UUID checkoutId,
                            List<TransactionPayment> transactionPayments) {
+        // [TODO]: This way of adding things to list can cause problems.
         this.transactionDateTime = transactionDateTime;
         this.checkoutId = checkoutId;
         this.transactionPayments = new ArrayList<>();
