@@ -9,7 +9,7 @@ import java.util.UUID;
 @Value
 public class Transaction {
 
-    List<Product> products;
+    List<TransactionProduct> products;
 
     Long totalPrice;
 
@@ -21,7 +21,7 @@ public class Transaction {
 
     TransactionInfo transactionInfo;
 
-    public Transaction(List<Product> products, Long id, UUID transactionId,
+    public Transaction(List<TransactionProduct> products, Long id, UUID transactionId,
                        Long totalPrice, String checkoutId, TransactionInfo transactionInfo) {
         // [TODO]: If product has a list with objects like this transaction, this will cause problems.
         this.id = id;

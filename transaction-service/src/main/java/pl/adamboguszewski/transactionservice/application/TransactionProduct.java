@@ -5,7 +5,7 @@ import java.util.UUID;
 import lombok.Value;
 
 @Value
-public class Product {
+public class TransactionProduct {
 
     Long id;
 
