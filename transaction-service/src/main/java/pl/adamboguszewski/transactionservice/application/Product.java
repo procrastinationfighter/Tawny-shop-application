@@ -4,13 +4,13 @@ public class Product {
 
     private final String id;
 
-    private final long priceMultiplier;
+    private final Long priceMultiplier;
 
-    private final long quantity;
+    private final Long quantity;
 
-    private final long totalPrice;
+    private final Long totalPrice;
 
-    public Product(String id, long priceMultiplier, long quantity, long totalPrice) {
+    public Product(String id, Long priceMultiplier, Long quantity, Long totalPrice) {
         this.id = id;
         this.priceMultiplier = priceMultiplier;
         this.quantity = quantity;
