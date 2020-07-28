@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Transaction {
 
@@ -13,18 +14,21 @@ public class Transaction {
 
     private final String id;
 
+    private final UUID transactionId;
+
     private final String checkoutId;
 
     private final LocalTime transactionTime;
 
     private final LocalDate transactionDate;
 
-    public Transaction(List<Product> products, String id,
+    public Transaction(List<Product> products, String id, UUID transactionId,
                        Long totalPrice, String checkoutId,
                        LocalTime transactionTime, LocalDate transactionDate) {
         this.id = id;
         this.products = new ArrayList<>();
         this.products.addAll(products);
+        this.transactionId = transactionId;
         this.totalPrice = totalPrice;
         this.checkoutId = checkoutId;
         this.transactionTime = transactionTime;
@@ -41,6 +45,10 @@ public class Transaction {
 
     public String getId() {
         return id;
+    }
+
+    public UUID getTransactionId() {
+        return transactionId;
     }
 
     public String getCheckoutId() {
