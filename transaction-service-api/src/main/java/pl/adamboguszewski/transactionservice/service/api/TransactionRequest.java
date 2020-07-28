@@ -1,21 +1,12 @@
 package pl.adamboguszewski.transactionservice.service.api;
 
+import lombok.Value;
+
+@Value
 public class TransactionRequest {
 
-    private final String id;
+    String id;
 
-    private final String name;
+    String name;
 
-    public TransactionRequest(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
 }

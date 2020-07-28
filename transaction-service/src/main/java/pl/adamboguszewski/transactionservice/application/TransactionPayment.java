@@ -1,5 +1,8 @@
 package pl.adamboguszewski.transactionservice.application;
 
+import lombok.Value;
+
+@Value
 public class TransactionPayment {
 
     public enum Currency {
@@ -14,35 +17,12 @@ public class TransactionPayment {
         GOOGLE_PAY
     }
 
-    private final Long amount;
+    Long amountPaid;
 
-    private final Currency currency;
+    Currency currency;
 
-    private final Long multiplier;
+    Long multiplier;
 
-    private final PaymentType paymentType;
+    PaymentType paymentType;
 
-    public TransactionPayment(Long amount, Currency currency,
-                              Long multiplier, PaymentType paymentType) {
-        this.amount = amount;
-        this.currency = currency;
-        this.multiplier = multiplier;
-        this.paymentType = paymentType;
-    }
-
-    public Long getAmount() {
-        return amount;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public Long getMultiplier() {
-        return multiplier;
-    }
-
-    public PaymentType getPaymentType() {
-        return paymentType;
-    }
 }
