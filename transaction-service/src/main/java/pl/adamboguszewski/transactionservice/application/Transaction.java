@@ -9,7 +9,7 @@ public class Transaction {
 
     private final List<Product> products;
 
-    private final double totalPrice;
+    private final Long totalPrice;
 
     private final String transactionId;
 
@@ -20,7 +20,7 @@ public class Transaction {
     private final LocalDate transactionDate;
 
     public Transaction(List<Product> products, String transactionId,
-                       long totalPrice, String checkoutId,
+                       Long totalPrice, String checkoutId,
                        LocalTime transactionTime, LocalDate transactionDate) {
         this.transactionId = transactionId;
         this.products = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Transaction {
         return products;
     }
 
-    public double getTotalPrice() {
+    public Long getTotalPrice() {
         return totalPrice;
     }
 
