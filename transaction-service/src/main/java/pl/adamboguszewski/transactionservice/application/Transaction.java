@@ -12,7 +12,7 @@ public class Transaction {
 
     private final Long totalPrice;
 
-    private final String id;
+    private final Long id;
 
     private final UUID transactionId;
 
@@ -22,7 +22,7 @@ public class Transaction {
 
     private final LocalDate transactionDate;
 
-    public Transaction(List<Product> products, String id, UUID transactionId,
+    public Transaction(List<Product> products, Long id, UUID transactionId,
                        Long totalPrice, String checkoutId,
                        LocalTime transactionTime, LocalDate transactionDate) {
         this.id = id;
@@ -43,7 +43,7 @@ public class Transaction {
         return totalPrice;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
