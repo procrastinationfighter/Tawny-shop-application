@@ -1,7 +1,6 @@
 package pl.adamboguszewski.transactionservice.application;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -18,13 +17,10 @@ public class Transaction {
 
     private final String checkoutId;
 
-    private final LocalTime transactionTime;
-
-    private final LocalDate transactionDate;
+    private final LocalDateTime transactionTime;
 
     public Transaction(List<Product> products, Long id, UUID transactionId,
-                       Long totalPrice, String checkoutId,
-                       LocalTime transactionTime, LocalDate transactionDate) {
+                       Long totalPrice, String checkoutId, LocalDateTime transactionTime) {
         this.id = id;
         this.products = new ArrayList<>();
         this.products.addAll(products);
@@ -32,7 +28,6 @@ public class Transaction {
         this.totalPrice = totalPrice;
         this.checkoutId = checkoutId;
         this.transactionTime = transactionTime;
-        this.transactionDate = transactionDate;
     }
 
     public List<Product> getProducts() {
@@ -55,12 +50,7 @@ public class Transaction {
         return checkoutId;
     }
 
-    public LocalTime getTransactionTime() {
+    public LocalDateTime getTransactionTime() {
         return transactionTime;
     }
-
-    public LocalDate getTransactionDate() {
-        return transactionDate;
-    }
-
 }
