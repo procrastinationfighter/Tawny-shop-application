@@ -14,7 +14,7 @@ public class TransactionPayment {
         GOOGLE_PAY
     }
 
-    private final Long amount;
+    private final Long amountPaid;
 
     private final Currency currency;
 
@@ -22,16 +22,16 @@ public class TransactionPayment {
 
     private final PaymentType paymentType;
 
-    public TransactionPayment(Long amount, Currency currency,
+    public TransactionPayment(Long amountPaid, Currency currency,
                               Long multiplier, PaymentType paymentType) {
-        this.amount = amount;
+        this.amountPaid = amountPaid;
         this.currency = currency;
         this.multiplier = multiplier;
         this.paymentType = paymentType;
     }
 
-    public Long getAmount() {
-        return amount;
+    public Long getAmountPaid() {
+        return amountPaid;
     }
 
     public Currency getCurrency() {
