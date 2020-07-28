@@ -1,5 +1,6 @@
 package pl.adamboguszewski.transactionservice.service.api;
 
+// [TODO]: Lombok
 public class TransactionRequest {
 
     private final String id;

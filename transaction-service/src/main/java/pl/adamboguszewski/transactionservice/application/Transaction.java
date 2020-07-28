@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+// [TODO]: Lombok
 public class Transaction {
 
     private final List<Product> products;
