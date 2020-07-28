@@ -1,4 +1,4 @@
-package pl.adamboguszewski.transactionservice.service.api;
+package pl.adamboguszewski.transactionservice.service.api.Transaction;
 
 import lombok.Value;
 
