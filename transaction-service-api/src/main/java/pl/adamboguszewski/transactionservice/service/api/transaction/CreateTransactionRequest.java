@@ -18,10 +18,10 @@ public class CreateTransactionRequest {
     List<Product> products;
 
     @NotNull
-    Info transactionInfo;
+    TransactionInfo transactionInfo;
 
     @Value
-    public static class Info {
+    public static class TransactionInfo {
 
         @NotNull
         LocalDateTime transactionTime;
@@ -30,10 +30,10 @@ public class CreateTransactionRequest {
         UUID checkoutId;
 
         @NotNull
-        List<PaymentInfo> paymentsInfo;
+        List<TransactionPayment> transactionPayments;
 
         @Value
-        public static class PaymentInfo {
+        public static class TransactionPayment {
 
             @NotNull
             Long amount;
