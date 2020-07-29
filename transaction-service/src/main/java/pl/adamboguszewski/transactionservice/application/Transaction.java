@@ -9,15 +9,15 @@ import java.util.UUID;
 @Value
 public class Transaction {
 
-    List<TransactionProduct> products;
-
-    Long totalPrice;
-
     Long id;
 
     UUID transactionId;
 
     TransactionInfo transactionInfo;
+
+    Long totalPrice;
+
+    List<TransactionProduct> products;
 
     public Transaction(List<TransactionProduct> products, Long id, UUID transactionId,
                        Long totalPrice, TransactionInfo transactionInfo) {
