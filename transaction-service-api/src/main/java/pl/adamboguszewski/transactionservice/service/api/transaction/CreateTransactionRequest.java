@@ -9,7 +9,7 @@ import java.util.UUID;
 // [TODO]: This is a create transaction request, implement info needed to create a transaction
 // [TODO]: Also look for a more proper class name, the hint is above
 @Value
-public class TransactionRequest {
+public class CreateTransactionRequest {
 
     @NonNull
     Long totalPrice;
