@@ -12,6 +12,9 @@ import java.util.UUID;
 public class CreateTransactionRequest {
 
     @NotNull
+    UUID transactionId;
+
+    @NotNull
     TransactionInfo transactionInfo;
 
     @Value
