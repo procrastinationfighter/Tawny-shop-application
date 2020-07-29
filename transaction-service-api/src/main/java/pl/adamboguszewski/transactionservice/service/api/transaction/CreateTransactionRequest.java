@@ -17,8 +17,12 @@ public class CreateTransactionRequest {
     @NonNull
     List<Product> products;
 
-    @NonNull
-    LocalDateTime transactionDateTime;
+    @Value
+    public static class Info {
+
+        @NonNull
+        LocalDateTime transactionTime;
+    }
 
     @Value
     public static class Product {
