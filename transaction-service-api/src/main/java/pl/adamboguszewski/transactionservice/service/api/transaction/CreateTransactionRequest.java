@@ -1,7 +1,7 @@
 package pl.adamboguszewski.transactionservice.service.api.transaction;
 
 import lombok.Value;
-import lombok.NonNull;
+import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,34 +10,34 @@ import java.util.UUID;
 @Value
 public class CreateTransactionRequest {
 
-    @NonNull
+    @NotNull
     Long totalPrice;
 
-    @NonNull
+    @NotNull
     List<Product> products;
 
-    @NonNull
+    @NotNull
     Info transactionInfo;
 
     @Value
     public static class Info {
 
-        @NonNull
+        @NotNull
         LocalDateTime transactionTime;
 
-        @NonNull
+        @NotNull
         UUID checkoutId;
 
-        @NonNull
+        @NotNull
         List<PaymentInfo> paymentsInfo;
 
         @Value
         public static class PaymentInfo {
 
-            @NonNull
+            @NotNull
             Long amount;
 
-            @NonNull
+            @NotNull
             Long multiplier;
         }
     }
@@ -45,10 +45,10 @@ public class CreateTransactionRequest {
     @Value
     public static class Product {
 
-        @NonNull
+        @NotNull
         UUID productId;
 
-        @NonNull
+        @NotNull
         Long quantity;
     }
 
