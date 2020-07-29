@@ -27,7 +27,7 @@ public class CreateTransactionRequest {
         LocalDateTime transactionTime;
 
         @NotNull
-        UUID checkoutId;
+        String checkoutId;
 
         @NotNull
         List<TransactionPayment> transactionPayments;
