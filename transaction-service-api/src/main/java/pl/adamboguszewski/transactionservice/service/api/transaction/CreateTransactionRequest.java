@@ -62,16 +62,31 @@ public class CreateTransactionRequest {
     Long totalPrice;
 
     @NotNull
-    List<Product> products;
+    List<TransactionProduct> products;
 
     @Value
-    public static class Product {
+    public static class TransactionProduct {
 
         @NotNull
         UUID productId;
 
         @NotNull
+        Long priceMultiplier;
+
+        @NotNull
         Long quantity;
+
+        @NotNull
+        Long totalPrice;
+
+        @NotNull
+        String productName;
+
+        @NotNull
+        String description;
+
+        @NotNull
+        String category;
     }
 
 }
