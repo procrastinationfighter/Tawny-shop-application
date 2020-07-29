@@ -3,11 +3,11 @@ package pl.adamboguszewski.transactionservice.service.api.transaction;
 import lombok.Value;
 import lombok.NonNull;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 // [TODO]: This is a create transaction request, implement info needed to create a transaction
-// [TODO]: Also look for a more proper class name, the hint is above
 @Value
 public class CreateTransactionRequest {
 
@@ -16,6 +16,9 @@ public class CreateTransactionRequest {
 
     @NonNull
     List<Product> products;
+
+    @NonNull
+    LocalDateTime transactionDateTime;
 
     @Value
     public static class Product {
