@@ -29,6 +29,18 @@ public class CreateTransactionRequest {
         @NonNull
         UUID checkoutId;
 
+        @NonNull
+        List<PaymentInfo> paymentsInfo;
+
+        @Value
+        public static class PaymentInfo {
+
+            @NonNull
+            Long amount;
+
+            @NonNull
+            Long multiplier;
+        }
     }
 
     @Value
