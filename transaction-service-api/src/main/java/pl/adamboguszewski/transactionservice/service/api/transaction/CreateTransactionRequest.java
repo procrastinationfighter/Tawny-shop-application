@@ -17,11 +17,18 @@ public class CreateTransactionRequest {
     @NonNull
     List<Product> products;
 
+    @NonNull
+    Info transactionInfo;
+
     @Value
     public static class Info {
 
         @NonNull
         LocalDateTime transactionTime;
+
+        @NonNull
+        UUID checkoutId;
+
     }
 
     @Value
