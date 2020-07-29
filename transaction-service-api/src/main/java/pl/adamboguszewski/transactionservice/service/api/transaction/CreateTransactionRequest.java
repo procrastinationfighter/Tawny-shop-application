@@ -32,11 +32,29 @@ public class CreateTransactionRequest {
         @Value
         public static class TransactionPayment {
 
+            public enum Currency {
+                PLN,
+                USD,
+                EUR
+            }
+
+            public enum PaymentType {
+                CASH,
+                CARD,
+                GOOGLE_PAY
+            }
+
             @NotNull
-            Long amount;
+            Long amountPaid;
+
+            @NotNull
+            Currency currency;
 
             @NotNull
             Long multiplier;
+
+            @NotNull
+            PaymentType paymentType;
         }
     }
 
