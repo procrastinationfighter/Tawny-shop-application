@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-// [TODO]: This is a create transaction request, implement info needed to create a transaction
 @Value
 public class CreateTransactionRequest {
 
