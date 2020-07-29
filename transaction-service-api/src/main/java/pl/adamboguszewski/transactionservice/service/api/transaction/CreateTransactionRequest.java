@@ -1,6 +1,7 @@
 package pl.adamboguszewski.transactionservice.service.api.transaction;
 
 import lombok.Value;
+
 import javax.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;

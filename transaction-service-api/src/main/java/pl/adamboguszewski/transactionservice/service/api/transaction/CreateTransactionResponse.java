@@ -1,17 +1,18 @@
 package pl.adamboguszewski.transactionservice.service.api.transaction;
 
-import lombok.NonNull;
 import lombok.Value;
+
+import javax.validation.constraints.NotNull;
 
 import java.util.UUID;
 
 @Value
 public class CreateTransactionResponse {
 
-    @NonNull
+    @NotNull
     UUID transactionId;
 
-    @NonNull
+    @NotNull
     boolean paymentSuccessful;
 
 }
