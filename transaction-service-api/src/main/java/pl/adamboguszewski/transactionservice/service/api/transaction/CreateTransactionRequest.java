@@ -12,22 +12,16 @@ import java.util.UUID;
 public class CreateTransactionRequest {
 
     @NotNull
-    Long totalPrice;
-
-    @NotNull
-    List<Product> products;
-
-    @NotNull
     TransactionInfo transactionInfo;
 
     @Value
     public static class TransactionInfo {
 
         @NotNull
-        LocalDateTime transactionTime;
+        String checkoutId;
 
         @NotNull
-        String checkoutId;
+        LocalDateTime transactionTime;
 
         @NotNull
         List<TransactionPayment> transactionPayments;
@@ -42,6 +36,12 @@ public class CreateTransactionRequest {
             Long multiplier;
         }
     }
+
+    @NotNull
+    Long totalPrice;
+
+    @NotNull
+    List<Product> products;
 
     @Value
     public static class Product {
