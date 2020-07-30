@@ -16,13 +16,22 @@ public class TransactionInfo {
 
     List<TransactionPayment> transactionPayments;
 
-    public TransactionInfo(CreateTransactionRequest.TransactionInfo request) {
-        this.transactionDateTime = request.getTransactionDateTime();
-        this.checkoutId = request.getCheckoutId();
+    private TransactionInfo(LocalDateTime dateTime, String checkoutId) {
+        this.transactionDateTime = dateTime;
+        this.checkoutId = checkoutId;
         this.transactionPayments = new ArrayList<>();
-        for(CreateTransactionRequest.TransactionInfo.TransactionPayment payment
-                : request.getTransactionPayments()) {
-            this.transactionPayments.add(new TransactionPayment(payment));
+    }
+
+    private void createPaymentsFromRequest(List<CreateTransactionRequest.TransactionInfo.TransactionPayment> requests) {
+        for(CreateTransactionRequest.TransactionInfo.TransactionPayment paymentRequest
+                : requests) {
+            this.transactionPayments.add(TransactionPayment.fromRequest(paymentRequest));
         }
+    }
+
+    public static TransactionInfo fromRequest(CreateTransactionRequest.TransactionInfo request) {
+        TransactionInfo info = new TransactionInfo(request.getTransactionDateTime(), request.getCheckoutId());
+        info.createPaymentsFromRequest(request.getTransactionPayments());
+        return info;
     }
 }

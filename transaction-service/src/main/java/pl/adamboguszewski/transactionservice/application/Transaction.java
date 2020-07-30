@@ -27,12 +27,12 @@ public class Transaction {
         this.products = new ArrayList<>();
         this.transactionId = transactionId;
         this.totalPrice = totalPrice;
-        this.transactionInfo = new TransactionInfo.fromRequest(transactionInfoRequest);
+        this.transactionInfo = TransactionInfo.fromRequest(transactionInfoRequest);
     }
 
     private void createProductsFromRequest(List<CreateTransactionRequest.TransactionProduct> productsRequest) {
-        for(CreateTransactionRequest.TransactionProduct product : productsRequest) {
-            this.products.add(new TransactionProduct(product));
+        for(CreateTransactionRequest.TransactionProduct productRequest : productsRequest) {
+            this.products.add(new TransactionProduct(productRequest));
         }
     }
 
