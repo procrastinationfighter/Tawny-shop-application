@@ -20,16 +20,26 @@ public class Transaction {
 
     List<TransactionProduct> products;
 
-    public Transaction(CreateTransactionRequest request) {
+    private Transaction(UUID transactionId, Long totalPrice,
+                        CreateTransactionRequest.TransactionInfo transactionInfoRequest) {
         // [TODO]: Temporary solution for assigning id.
         this.id = -1L;
         this.products = new ArrayList<>();
-        for(CreateTransactionRequest.TransactionProduct product : request.getProducts()) {
-            this.products.add(new TransactionProduct(product));
-        }
-        this.transactionId = request.getTransactionId();
-        this.totalPrice = request.getTotalPrice();
-        this.transactionInfo = new TransactionInfo(request.getTransactionInfo());
+        this.transactionId = transactionId;
+        this.totalPrice = totalPrice;
+        this.transactionInfo = new TransactionInfo.fromRequest(transactionInfoRequest);
     }
 
+    private void createProductsFromRequest(List<CreateTransactionRequest.TransactionProduct> productsRequest) {
+        for(CreateTransactionRequest.TransactionProduct product : productsRequest) {
+            this.products.add(new TransactionProduct(product));
+        }
+    }
+
+    public static Transaction fromRequest(CreateTransactionRequest request) {
+        Transaction transaction = new Transaction(request.getTransactionId(),
+                request.getTotalPrice(), request.getTransactionInfo());
+        transaction.createProductsFromRequest(request.getProducts());
+        return transaction;
+    }
 }
