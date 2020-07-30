@@ -1,4 +1,4 @@
-package pl.adamboguszewski.transaction.service.application;
+package pl.adamboguszewski.transaction.service.infrastructure.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
