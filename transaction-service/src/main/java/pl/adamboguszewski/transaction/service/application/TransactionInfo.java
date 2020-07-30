@@ -14,18 +14,18 @@ public class TransactionInfo {
 
     String checkoutId;
 
-    List<TransactionPayment> transactionPayments;
+    List<PaymentInformation> paymentInformations;
 
     private TransactionInfo(LocalDateTime dateTime, String checkoutId) {
         this.transactionDateTime = dateTime;
         this.checkoutId = checkoutId;
-        this.transactionPayments = new ArrayList<>();
+        this.paymentInformations = new ArrayList<>();
     }
 
     private void createPaymentsFromRequest(List<CreateTransactionRequest.TransactionInfo.TransactionPayment> requests) {
         for(CreateTransactionRequest.TransactionInfo.TransactionPayment paymentRequest
                 : requests) {
-            this.transactionPayments.add(TransactionPayment.fromRequest(paymentRequest));
+            this.paymentInformations.add(PaymentInformation.fromRequest(paymentRequest));
         }
     }
 

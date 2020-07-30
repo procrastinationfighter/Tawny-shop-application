@@ -6,14 +6,14 @@ import pl.adamboguszewski.transaction.service.service.api.PaymentType;
 import pl.adamboguszewski.transaction.service.service.api.transaction.CreateTransactionRequest;
 
 @Value
-public class TransactionPayment {
+public class PaymentInformation {
 
     Long amountPaid;
     Long multiplier;
     Currency currency;
     PaymentType paymentType;
 
-    public TransactionPayment(Long amountPaid, Long multiplier, Currency currency,
+    public PaymentInformation(Long amountPaid, Long multiplier, Currency currency,
                               PaymentType paymentType) {
         this.amountPaid = amountPaid;
         this.multiplier = multiplier;
@@ -21,8 +21,8 @@ public class TransactionPayment {
         this.paymentType = paymentType;
     }
 
-    public static TransactionPayment fromRequest(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
-        return new TransactionPayment(
+    public static PaymentInformation fromRequest(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
+        return new PaymentInformation(
                 request.getAmountPaid(),
                 request.getMultiplier(),
                 Currency.fromString(request.getCurrency().getValue()),
