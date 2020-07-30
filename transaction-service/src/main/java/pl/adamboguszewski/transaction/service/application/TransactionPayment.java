@@ -10,21 +10,21 @@ public class TransactionPayment {
 
     Long multiplier;
 
-    TransactionCurrency transactionCurrency;
+    Currency currency;
 
     TransactionPaymentType transactionPaymentType;
 
-    public TransactionPayment(Long amountPaid, Long multiplier, TransactionCurrency transactionCurrency,
+    public TransactionPayment(Long amountPaid, Long multiplier, Currency currency,
                               TransactionPaymentType transactionPaymentType) {
         this.amountPaid = amountPaid;
         this.multiplier = multiplier;
-        this.transactionCurrency = transactionCurrency;
+        this.currency = currency;
         this.transactionPaymentType = transactionPaymentType;
     }
 
     public static TransactionPayment fromRequest(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
         return new TransactionPayment(request.getAmountPaid(), request.getMultiplier(),
-                TransactionCurrency.labelToType(request.getCurrency().name().toLowerCase()),
+                Currency.labelToType(request.getCurrency().name().toLowerCase()),
                 TransactionPaymentType.labelToType(request.getPaymentType().name().toLowerCase()));
     }
 
