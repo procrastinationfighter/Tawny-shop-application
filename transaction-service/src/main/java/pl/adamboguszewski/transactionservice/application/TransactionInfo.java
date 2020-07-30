@@ -1,27 +1,28 @@
 package pl.adamboguszewski.transactionservice.application;
 
 import lombok.Value;
+import pl.adamboguszewski.transactionservice.service.api.transaction.CreateTransactionRequest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Value
 public class TransactionInfo {
 
     LocalDateTime transactionDateTime;
 
-    UUID checkoutId;
+    String checkoutId;
 
     List<TransactionPayment> transactionPayments;
 
-    public TransactionInfo(LocalDateTime transactionDateTime, UUID checkoutId,
-                           List<TransactionPayment> transactionPayments) {
-        // [TODO]: This way of adding things to list can cause problems.
-        this.transactionDateTime = transactionDateTime;
-        this.checkoutId = checkoutId;
+    public TransactionInfo(CreateTransactionRequest.TransactionInfo request) {
+        this.transactionDateTime = request.getTransactionDateTime();
+        this.checkoutId = request.getCheckoutId();
         this.transactionPayments = new ArrayList<>();
-        this.transactionPayments.addAll(transactionPayments);
+        for(CreateTransactionRequest.TransactionInfo.TransactionPayment payment
+                : request.getTransactionPayments()) {
+            this.transactionPayments.add(new TransactionPayment(payment));
+        }
     }
 }

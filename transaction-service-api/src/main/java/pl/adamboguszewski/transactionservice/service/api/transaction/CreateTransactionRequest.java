@@ -24,7 +24,7 @@ public class CreateTransactionRequest {
         String checkoutId;
 
         @NotNull
-        LocalDateTime transactionTime;
+        LocalDateTime transactionDateTime;
 
         @NotNull
         List<TransactionPayment> transactionPayments;
