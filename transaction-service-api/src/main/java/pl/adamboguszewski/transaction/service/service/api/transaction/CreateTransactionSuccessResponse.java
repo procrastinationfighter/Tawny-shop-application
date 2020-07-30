@@ -5,5 +5,5 @@ import lombok.Value;
 @Value
 public class CreateTransactionSuccessResponse implements CreateTransactionResponse {
 
-    Long transactionIdInDatabase;
+    Long id;
 }

@@ -10,7 +10,8 @@ public enum PaymentType {
 
     CASH("cash"),
     CARD("card"),
-    GOOGLE_PAY("google_pay");
+    GOOGLE_PAY("google_pay")
+    ;
 
     private final String value;
 
