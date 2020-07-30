@@ -12,20 +12,20 @@ public class TransactionPayment {
 
     Currency currency;
 
-    TransactionPaymentType transactionPaymentType;
+    PaymentType paymentType;
 
     public TransactionPayment(Long amountPaid, Long multiplier, Currency currency,
-                              TransactionPaymentType transactionPaymentType) {
+                              PaymentType paymentType) {
         this.amountPaid = amountPaid;
         this.multiplier = multiplier;
         this.currency = currency;
-        this.transactionPaymentType = transactionPaymentType;
+        this.paymentType = paymentType;
     }
 
     public static TransactionPayment fromRequest(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
         return new TransactionPayment(request.getAmountPaid(), request.getMultiplier(),
                 Currency.labelToType(request.getCurrency().name().toLowerCase()),
-                TransactionPaymentType.labelToType(request.getPaymentType().name().toLowerCase()));
+                PaymentType.labelToType(request.getPaymentType().name().toLowerCase()));
     }
 
 }
