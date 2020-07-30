@@ -1,9 +1,9 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import java.util.UUID;
-
 import lombok.Value;
 import pl.adamboguszewski.transaction.service.service.api.transaction.CreateTransactionRequest;
+
+import java.util.UUID;
 
 @Value
 public class TransactionProduct {
@@ -11,28 +11,35 @@ public class TransactionProduct {
     Long id;
 
     UUID productId;
-
-    Long priceMultiplier;
-
-    Long quantity;
-
-    Long totalPrice;
-
     String productName;
 
+    Long price;
+    Long quantity;
+    Long priceMultiplier;
     String description;
-
     String category;
 
-    public TransactionProduct(CreateTransactionRequest.TransactionProduct request) {
+    private TransactionProduct(UUID productId, String productName, Long price, Long quantity, Long priceMultiplier, String description, String category) {
         // [TODO] Temporary solution for assigning id.
         this.id = -1L;
-        this.productId = request.getProductId();
-        this.priceMultiplier = request.getPriceMultiplier();
-        this.quantity = request.getQuantity();
-        this.totalPrice = request.getTotalPrice();
-        this.productName = request.getProductName();
-        this.description = request.getDescription();
-        this.category = request.getCategory();
+        this.productId = productId;
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+        this.priceMultiplier = priceMultiplier;
+        this.description = description;
+        this.category = category;
+    }
+
+    public static TransactionProduct fromRequest(CreateTransactionRequest.TransactionProduct request) {
+        return new TransactionProduct(
+                request.getProductId(),
+                request.getProductName(),
+                request.getTotalPrice(),
+                request.getQuantity(),
+                request.getPriceMultiplier(),
+                request.getDescription(),
+                request.getCategory()
+        );
     }
 }
