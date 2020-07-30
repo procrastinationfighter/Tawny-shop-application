@@ -4,34 +4,42 @@ import lombok.Value;
 import pl.adamboguszewski.transaction.service.service.api.transaction.CreateTransactionRequest;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Value
 public class TransactionInfo {
 
     LocalDateTime transactionDateTime;
-
     String checkoutId;
 
-    List<PaymentInformation> paymentInformations;
+    List<PaymentInformation> payments;
 
-    private TransactionInfo(LocalDateTime dateTime, String checkoutId) {
-        this.transactionDateTime = dateTime;
+    private TransactionInfo(LocalDateTime transactionDateTime, String checkoutId, List<PaymentInformation> payments) {
+        this.transactionDateTime = transactionDateTime;
         this.checkoutId = checkoutId;
-        this.paymentInformations = new ArrayList<>();
+        this.payments = payments;
     }
 
-    private void createPaymentsFromRequest(List<CreateTransactionRequest.TransactionInfo.TransactionPayment> requests) {
-        for(CreateTransactionRequest.TransactionInfo.TransactionPayment paymentRequest
-                : requests) {
-            this.paymentInformations.add(PaymentInformation.fromRequest(paymentRequest));
-        }
-    }
+//    // immutable object bruh..
+//    private void createPaymentsFromRequest(List<CreateTransactionRequest.TransactionInfo.TransactionPayment> requests) {
+//        for(CreateTransactionRequest.TransactionInfo.TransactionPayment paymentRequest
+//                : requests) {
+//            this.payments.add(PaymentInformation.fromRequest(paymentRequest));
+//        }
+//    }
 
     public static TransactionInfo fromRequest(CreateTransactionRequest.TransactionInfo request) {
-        TransactionInfo info = new TransactionInfo(request.getTransactionDateTime(), request.getCheckoutId());
-        info.createPaymentsFromRequest(request.getTransactionPayments());
-        return info;
+        List<PaymentInformation> payments;
+        payments = request.getTransactionPayments()
+                .stream()
+                .map(PaymentInformation::fromRequest)
+                .collect(Collectors.toList());
+
+        return new TransactionInfo(
+                request.getTransactionDateTime(),
+                request.getCheckoutId(),
+                payments
+        );
     }
 }
