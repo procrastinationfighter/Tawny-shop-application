@@ -7,11 +7,8 @@ import pl.adamboguszewski.transaction.service.service.api.transaction.CreateTran
 public class TransactionPayment {
 
     Long amountPaid;
-
     Long multiplier;
-
     Currency currency;
-
     PaymentType paymentType;
 
     public TransactionPayment(Long amountPaid, Long multiplier, Currency currency,
@@ -23,9 +20,12 @@ public class TransactionPayment {
     }
 
     public static TransactionPayment fromRequest(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
-        return new TransactionPayment(request.getAmountPaid(), request.getMultiplier(),
-                Currency.labelToType(request.getCurrency().name().toLowerCase()),
-                PaymentType.labelToType(request.getPaymentType().name().toLowerCase()));
+        return new TransactionPayment(
+                request.getAmountPaid(),
+                request.getMultiplier(),
+                Currency.fromString(request.getCurrency().getValue()),
+                PaymentType.fromString(request.getPaymentType().getValue())
+        );
     }
 
 }

@@ -3,7 +3,6 @@ package pl.adamboguszewski.transaction.service.service.api.transaction;
 import lombok.Value;
 
 import javax.validation.constraints.NotNull;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -36,25 +35,13 @@ public class CreateTransactionRequest {
             Long amountPaid;
 
             @NotNull
-            Currency currency;
+            String currency;
 
             @NotNull
             Long multiplier;
 
             @NotNull
-            PaymentType paymentType;
-
-            public enum Currency {
-                PLN,
-                USD,
-                EUR
-            }
-
-            public enum PaymentType {
-                CASH,
-                CARD,
-                GOOGLE_PAY
-            }
+            String paymentType;
         }
     }
 
