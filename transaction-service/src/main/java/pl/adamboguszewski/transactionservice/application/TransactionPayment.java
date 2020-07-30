@@ -8,18 +8,24 @@ public class TransactionPayment {
 
     Long amountPaid;
 
-    TransactionCurrency transactionCurrency;
-
     Long multiplier;
+
+    TransactionCurrency transactionCurrency;
 
     TransactionPaymentType transactionPaymentType;
 
-    public TransactionPayment(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
-        this.amountPaid = request.getAmountPaid();
-        this.multiplier = request.getMultiplier();
-        // [TODO] Solve problem with same enums in two classes from different modules.
-        this.transactionCurrency = TransactionCurrency.PLN;
-        this.transactionPaymentType = TransactionPaymentType.CARD;
+    public TransactionPayment(Long amountPaid, Long multiplier, TransactionCurrency transactionCurrency,
+                              TransactionPaymentType transactionPaymentType) {
+        this.amountPaid = amountPaid;
+        this.multiplier = multiplier;
+        this.transactionCurrency = transactionCurrency;
+        this.transactionPaymentType = transactionPaymentType;
+    }
+
+    public static TransactionPayment fromRequest(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
+        return new TransactionPayment(request.getAmountPaid(), request.getMultiplier(),
+                TransactionCurrency.labelToType(request.getCurrency().name().toLowerCase()),
+                TransactionPaymentType.labelToType(request.getPaymentType().name().toLowerCase()));
     }
 
 }
