@@ -3,6 +3,7 @@ package pl.adamboguszewski.transactionservice.application;
 import java.util.UUID;
 
 import lombok.Value;
+import pl.adamboguszewski.transactionservice.service.api.transaction.CreateTransactionRequest;
 
 @Value
 public class TransactionProduct {
@@ -22,4 +23,16 @@ public class TransactionProduct {
     String description;
 
     String category;
+
+    public TransactionProduct(CreateTransactionRequest.TransactionProduct request) {
+        // [TODO] Temporary solution for assigning id.
+        this.id = -1L;
+        this.productId = request.getProductId();
+        this.priceMultiplier = request.getPriceMultiplier();
+        this.quantity = request.getQuantity();
+        this.totalPrice = request.getTotalPrice();
+        this.productName = request.getProductName();
+        this.description = request.getDescription();
+        this.category = request.getCategory();
+    }
 }
