@@ -1,4 +1,4 @@
-package pl.adamboguszewski.transactionservice.application;
+package pl.adamboguszewski.transaction.service.application;
 
 import java.util.HashMap;
 import java.util.Map;

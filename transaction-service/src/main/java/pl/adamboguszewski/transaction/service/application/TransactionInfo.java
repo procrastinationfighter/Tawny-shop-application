@@ -1,7 +1,7 @@
-package pl.adamboguszewski.transactionservice.application;
+package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Value;
-import pl.adamboguszewski.transactionservice.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.service.api.transaction.CreateTransactionRequest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
