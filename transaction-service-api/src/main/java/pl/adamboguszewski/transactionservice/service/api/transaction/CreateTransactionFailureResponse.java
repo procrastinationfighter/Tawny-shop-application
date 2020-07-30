@@ -3,7 +3,7 @@ package pl.adamboguszewski.transactionservice.service.api.transaction;
 import lombok.Value;
 
 @Value
-public class CreateUnsuccessfulTransactionResponse implements CreateTransactionResponse {
+public class CreateTransactionFailureResponse implements CreateTransactionResponse {
 
     ErrorType errorType;
 
