@@ -8,20 +8,20 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Value
-public class TransactionInfo {
+public class TransactionInformation {
 
     LocalDateTime transactionDateTime;
     String checkoutId;
 
     List<PaymentInformation> payments;
 
-    private TransactionInfo(LocalDateTime transactionDateTime, String checkoutId, List<PaymentInformation> payments) {
+    private TransactionInformation(LocalDateTime transactionDateTime, String checkoutId, List<PaymentInformation> payments) {
         this.transactionDateTime = transactionDateTime;
         this.checkoutId = checkoutId;
         this.payments = payments;
     }
 
-//    // immutable object bruh..
+//    // immutable object bruh.. Please delete this after read
 //    private void createPaymentsFromRequest(List<CreateTransactionRequest.TransactionInfo.TransactionPayment> requests) {
 //        for(CreateTransactionRequest.TransactionInfo.TransactionPayment paymentRequest
 //                : requests) {
@@ -29,14 +29,14 @@ public class TransactionInfo {
 //        }
 //    }
 
-    public static TransactionInfo fromRequest(CreateTransactionRequest.TransactionInfo request) {
+    public static TransactionInformation fromRequest(CreateTransactionRequest.TransactionInfo request) {
         List<PaymentInformation> payments;
         payments = request.getTransactionPayments()
                 .stream()
                 .map(PaymentInformation::fromRequest)
                 .collect(Collectors.toList());
 
-        return new TransactionInfo(
+        return new TransactionInformation(
                 request.getTransactionDateTime(),
                 request.getCheckoutId(),
                 payments

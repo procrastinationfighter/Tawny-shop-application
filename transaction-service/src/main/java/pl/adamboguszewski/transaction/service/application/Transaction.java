@@ -14,7 +14,7 @@ public class Transaction {
 
     UUID transactionId;
 
-    TransactionInfo transactionInfo;
+    TransactionInformation transactionInformation;
 
     Long totalPrice;
 
@@ -27,7 +27,7 @@ public class Transaction {
         this.products = new ArrayList<>();
         this.transactionId = transactionId;
         this.totalPrice = totalPrice;
-        this.transactionInfo = TransactionInfo.fromRequest(transactionInfoRequest);
+        this.transactionInformation = TransactionInformation.fromRequest(transactionInfoRequest);
     }
 
     private void createProductsFromRequest(List<CreateTransactionRequest.TransactionProduct> productsRequest) {
