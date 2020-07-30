@@ -5,6 +5,14 @@ import lombok.Value;
 @Value
 public class TransactionPayment {
 
+    Long amountPaid;
+
+    Currency currency;
+
+    Long multiplier;
+
+    PaymentType paymentType;
+
     public enum Currency {
         PLN,
         USD,
@@ -16,13 +24,5 @@ public class TransactionPayment {
         CARD,
         GOOGLE_PAY
     }
-
-    Long amountPaid;
-
-    Currency currency;
-
-    Long multiplier;
-
-    PaymentType paymentType;
 
 }
