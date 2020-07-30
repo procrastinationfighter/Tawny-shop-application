@@ -32,7 +32,7 @@ public class Transaction {
     }
 
     public static Transaction fromRequest(CreateTransactionRequest request) {
-        TransactionInformation transactionInformation = TransactionInformation.fromRequest(request.getTransactionInfo());
+        TransactionInformation transactionInformation = TransactionInformation.fromRequest(request.getTransactionInformation());
 
         List<TransactionProduct> products = request.getProducts()
                 .stream()

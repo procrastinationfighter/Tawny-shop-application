@@ -14,24 +14,47 @@ public class CreateTransactionRequest {
 
     @NotNull
     UUID transactionId;
+    @NotNull
+    Long totalPrice;
 
     @NotNull
-    TransactionInfo transactionInfo;
+    CreateTransactionRequest.TransactionInformation transactionInformation;
+    @NotNull
+    List<TransactionProduct> products;
 
     @Value
-    public static class TransactionInfo {
+    public static class TransactionProduct {
 
+        @NotNull
+        UUID productId;
+        @NotNull
+        String name;
+
+        @NotNull
+        Long price;
+        @NotNull
+        Long quantity;
+        @NotNull
+        Long priceMultiplier;
+        @NotNull
+        String description;
+        @NotNull
+        String category;
+    }
+
+    @Value
+    public static class TransactionInformation {
+
+        @NotNull
+        LocalDateTime transactionDateTime;
         @NotNull
         String checkoutId;
 
         @NotNull
-        LocalDateTime transactionDateTime;
-
-        @NotNull
-        List<TransactionPayment> transactionPayments;
+        List<PaymentInformation> paymentInformations;
 
         @Value
-        public static class TransactionPayment {
+        public static class PaymentInformation {
             @NotNull
             Long amountPaid;
             @NotNull
@@ -43,35 +66,23 @@ public class CreateTransactionRequest {
         }
     }
 
-    @NotNull
-    Long totalPrice;
-
-    @NotNull
-    List<TransactionProduct> products;
-
-    @Value
-    public static class TransactionProduct {
-
-        @NotNull
-        UUID productId;
-
-        @NotNull
-        Long priceMultiplier;
-
-        @NotNull
-        Long quantity;
-
-        @NotNull
-        Long totalPrice;
-
-        @NotNull
-        String productName;
-
-        @NotNull
-        String description;
-
-        @NotNull
-        String category;
-    }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -29,9 +29,9 @@ public class TransactionInformation {
 //        }
 //    }
 
-    public static TransactionInformation fromRequest(CreateTransactionRequest.TransactionInfo request) {
+    public static TransactionInformation fromRequest(CreateTransactionRequest.TransactionInformation request) {
         List<PaymentInformation> payments;
-        payments = request.getTransactionPayments()
+        payments = request.getPaymentInformations()
                 .stream()
                 .map(PaymentInformation::fromRequest)
                 .collect(Collectors.toList());

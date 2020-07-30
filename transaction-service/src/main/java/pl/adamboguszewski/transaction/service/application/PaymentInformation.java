@@ -21,7 +21,7 @@ public class PaymentInformation {
         this.paymentType = paymentType;
     }
 
-    public static PaymentInformation fromRequest(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
+    public static PaymentInformation fromRequest(CreateTransactionRequest.TransactionInformation.PaymentInformation request) {
         return new PaymentInformation(
                 request.getAmountPaid(),
                 request.getMultiplier(),

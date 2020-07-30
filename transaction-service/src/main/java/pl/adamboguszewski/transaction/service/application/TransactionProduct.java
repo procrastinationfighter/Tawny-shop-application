@@ -11,7 +11,7 @@ public class TransactionProduct {
     Long id;
 
     UUID productId;
-    String productName;
+    String name;
 
     Long price;
     Long quantity;
@@ -19,11 +19,11 @@ public class TransactionProduct {
     String description;
     String category;
 
-    private TransactionProduct(UUID productId, String productName, Long price, Long quantity, Long priceMultiplier, String description, String category) {
+    private TransactionProduct(UUID productId, String name, Long price, Long quantity, Long priceMultiplier, String description, String category) {
         // [TODO] Temporary solution for assigning id.
         this.id = -1L;
         this.productId = productId;
-        this.productName = productName;
+        this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.priceMultiplier = priceMultiplier;
@@ -34,8 +34,8 @@ public class TransactionProduct {
     public static TransactionProduct fromRequest(CreateTransactionRequest.TransactionProduct request) {
         return new TransactionProduct(
                 request.getProductId(),
-                request.getProductName(),
-                request.getTotalPrice(),
+                request.getName(),
+                request.getPrice(),
                 request.getQuantity(),
                 request.getPriceMultiplier(),
                 request.getDescription(),
