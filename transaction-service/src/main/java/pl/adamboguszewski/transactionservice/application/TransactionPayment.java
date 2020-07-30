@@ -1,28 +1,31 @@
 package pl.adamboguszewski.transactionservice.application;
 
 import lombok.Value;
+import pl.adamboguszewski.transactionservice.service.api.transaction.CreateTransactionRequest;
 
 @Value
 public class TransactionPayment {
 
-    public enum Currency {
-        PLN,
-        USD,
-        EUR
-    }
-
-    public enum PaymentType {
-        CASH,
-        CARD,
-        GOOGLE_PAY
-    }
-
     Long amountPaid;
-
-    Currency currency;
 
     Long multiplier;
 
-    PaymentType paymentType;
+    TransactionCurrency transactionCurrency;
+
+    TransactionPaymentType transactionPaymentType;
+
+    public TransactionPayment(Long amountPaid, Long multiplier, TransactionCurrency transactionCurrency,
+                              TransactionPaymentType transactionPaymentType) {
+        this.amountPaid = amountPaid;
+        this.multiplier = multiplier;
+        this.transactionCurrency = transactionCurrency;
+        this.transactionPaymentType = transactionPaymentType;
+    }
+
+    public static TransactionPayment fromRequest(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
+        return new TransactionPayment(request.getAmountPaid(), request.getMultiplier(),
+                TransactionCurrency.labelToType(request.getCurrency().name().toLowerCase()),
+                TransactionPaymentType.labelToType(request.getPaymentType().name().toLowerCase()));
+    }
 
 }
