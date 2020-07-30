@@ -1,6 +1,7 @@
 package pl.adamboguszewski.transactionservice.application;
 
 import lombok.Value;
+import pl.adamboguszewski.transactionservice.service.api.transaction.CreateTransactionRequest;
 
 @Value
 public class TransactionPayment {
@@ -23,6 +24,14 @@ public class TransactionPayment {
         CASH,
         CARD,
         GOOGLE_PAY
+    }
+
+    public TransactionPayment(CreateTransactionRequest.TransactionInfo.TransactionPayment request) {
+        this.amountPaid = request.getAmountPaid();
+        this.multiplier = request.getMultiplier();
+        // [TODO] Solve problem with same enums in two classes from different modules.
+        this.currency = Currency.PLN;
+        this.paymentType = PaymentType.CARD;
     }
 
 }
