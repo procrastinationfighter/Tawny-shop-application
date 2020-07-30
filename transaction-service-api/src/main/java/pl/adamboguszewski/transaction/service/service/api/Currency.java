@@ -1,4 +1,4 @@
-package pl.adamboguszewski.transaction.service.application;
+package pl.adamboguszewski.transaction.service.service.api;
 
 import java.util.Map;
 import java.util.Optional;

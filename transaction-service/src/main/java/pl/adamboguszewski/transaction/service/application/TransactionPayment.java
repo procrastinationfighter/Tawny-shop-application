@@ -1,6 +1,8 @@
 package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Value;
+import pl.adamboguszewski.transaction.service.service.api.Currency;
+import pl.adamboguszewski.transaction.service.service.api.PaymentType;
 import pl.adamboguszewski.transaction.service.service.api.transaction.CreateTransactionRequest;
 
 @Value
