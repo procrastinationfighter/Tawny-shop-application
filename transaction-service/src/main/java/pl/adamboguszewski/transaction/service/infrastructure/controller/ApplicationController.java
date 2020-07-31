@@ -3,7 +3,7 @@ package pl.adamboguszewski.transaction.service.infrastructure.controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.adamboguszewski.transaction.service.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 
 @RestController
 @RequestMapping

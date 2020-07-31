@@ -1,4 +1,4 @@
-package pl.adamboguszewski.transaction.service.service.api;
+package pl.adamboguszewski.transaction.service.api;
 
 import java.util.Map;
 import java.util.Optional;
@@ -6,20 +6,20 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum Currency {
+public enum PaymentType {
 
-    PLN("pln"),
-    USD("usd"),
-    EUR("eur")
+    CASH("cash"),
+    CARD("card"),
+    GOOGLE_PAY("google_pay")
     ;
 
     private final String value;
 
-    private static final Map<String, Currency> FORMAT_MAP = Stream
-            .of(Currency.values())
+    private static final Map<String, PaymentType> FORMAT_MAP = Stream
+            .of(PaymentType.values())
             .collect(Collectors.toMap(s -> s.value, Function.identity()));
 
-    Currency(final String value) {
+    PaymentType(final String value) {
         this.value = value.toLowerCase();
     }
 
@@ -27,9 +27,9 @@ public enum Currency {
         return value;
     }
 
-    public static Currency fromString(String value) {
+    public static PaymentType fromString(String value) {
         return Optional
                 .ofNullable(FORMAT_MAP.get(value.toLowerCase()))
-                .orElseThrow(() -> new IllegalArgumentException(value)); // [TODO]: Add IllegalCurrencyArgumentException
+                .orElseThrow(() -> new IllegalArgumentException(value)); // [TODO]: Add IllegalPaymentTypeArgumentException
     }
 }
