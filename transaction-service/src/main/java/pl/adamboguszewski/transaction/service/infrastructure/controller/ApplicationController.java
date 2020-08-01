@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
 
 @RestController
@@ -37,5 +38,15 @@ public class ApplicationController {
 
     public ApplicationController(TransactionService transactionService) {
         this.transactionService = transactionService;
+    }
+
+    @GetMapping("/transaction-service/api/")
+    public String getAll() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for(Transaction transaction : transactionService.getAll()) {
+            stringBuilder.append(transaction.toString());
+            stringBuilder.append(System.lineSeparator());
+        }
+        return stringBuilder.toString();
     }
 }
