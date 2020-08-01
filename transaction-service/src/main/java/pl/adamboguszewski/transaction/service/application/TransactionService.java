@@ -23,8 +23,8 @@ public class TransactionService {
         return null;
     }
 
-    public String editTransaction(Long id) {
-        return "";
+    public void replaceTransaction(Long id) {
+
     }
 
     public void deleteTransaction(Long id) {

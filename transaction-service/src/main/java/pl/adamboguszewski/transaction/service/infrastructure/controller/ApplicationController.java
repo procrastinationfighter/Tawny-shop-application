@@ -55,7 +55,13 @@ public class ApplicationController {
     }
 
     @PostMapping("/transaction-service/api/")
-    public CreateTransactionResponse postTransaction(CreateTransactionRequest request) {
+    public CreateTransactionResponse createTransaction(CreateTransactionRequest request) {
         return transactionService.createTransaction(request);
+    }
+
+    @PutMapping("/transaction-service/api/{id}")
+    public String replaceTransaction(@PathVariable Long id) {
+        transactionService.replaceTransaction(id);
+        return "200";
     }
 }
