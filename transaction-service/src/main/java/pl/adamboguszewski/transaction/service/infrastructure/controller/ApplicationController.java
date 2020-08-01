@@ -32,8 +32,4 @@ public class ApplicationController {
 //    for every method implemented here. What should our controller return? CreateReturnTransactionResponse for POST method and String
 //    with some info in others.
 
-    @GetMapping("/")
-    public String printRequest(CreateTransactionRequest request) {
-        return "Request received successfully.";
-    }
 }
