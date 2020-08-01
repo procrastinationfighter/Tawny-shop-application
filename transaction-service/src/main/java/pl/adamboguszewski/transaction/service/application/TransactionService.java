@@ -2,6 +2,7 @@ package pl.adamboguszewski.transaction.service.application;
 
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ public class TransactionService {
         return null;
     }
 
-    public Transaction createTransaction(CreateTransactionRequest request) {
+    public CreateTransactionResponse createTransaction(CreateTransactionRequest request) {
         return null;
     }
 
