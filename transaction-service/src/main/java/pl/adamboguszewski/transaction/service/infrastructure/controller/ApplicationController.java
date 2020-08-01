@@ -64,4 +64,10 @@ public class ApplicationController {
         transactionService.replaceTransaction(id);
         return "200";
     }
+
+    @DeleteMapping("transaction-service/api/{id}")
+    public String deleteTransaction(@PathVariable Long id) {
+        transactionService.deleteTransaction(id);
+        return "200";
+    }
 }
