@@ -34,7 +34,6 @@ public class ApplicationController {
 
     @GetMapping("/")
     public String printRequest(CreateTransactionRequest request) {
-        return "Request of total price: " + request.getTotalPrice() +
-                " and products: " + request.getProducts().toString() + " received successfully.";
+        return "Request received successfully.";
     }
 }
