@@ -1,8 +1,6 @@
 package pl.adamboguszewski.transaction.service.infrastructure.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
@@ -48,5 +46,10 @@ public class ApplicationController {
             stringBuilder.append(System.lineSeparator());
         }
         return stringBuilder.toString();
+    }
+
+    @GetMapping("transaction-service/api/{id}")
+    public String getTransactionById(@PathVariable Long id) {
+        return transactionService.getById(id).toString();
     }
 }
