@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.application.TransactionService;
 
 @RestController
 @RequestMapping("/")
@@ -32,4 +33,9 @@ public class ApplicationController {
 //    for every method implemented here. What should our controller return? CreateReturnTransactionResponse for POST method and String
 //    with some info in others.
 
+    private final TransactionService transactionService;
+
+    public ApplicationController(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 }

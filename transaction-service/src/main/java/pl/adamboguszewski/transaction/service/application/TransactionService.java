@@ -1,11 +1,13 @@
 package pl.adamboguszewski.transaction.service.application;
 
+import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 // [TODO] Fill the details of this class.
+@Service
 public class TransactionService {
 
     public List<Transaction> getAll() {
