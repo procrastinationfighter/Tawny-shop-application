@@ -1,5 +1,7 @@
 package pl.adamboguszewski.transaction.service.api;
 
+import pl.adamboguszewski.transaction.service.api.exception.IllegalPaymentTypeArgumentException;
+
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -30,6 +32,6 @@ public enum PaymentType {
     public static PaymentType fromString(String value) {
         return Optional
                 .ofNullable(FORMAT_MAP.get(value.toLowerCase()))
-                .orElseThrow(() -> new IllegalArgumentException(value)); // [TODO]: Add IllegalPaymentTypeArgumentException
+                .orElseThrow(() -> new IllegalPaymentTypeArgumentException(value));
     }
 }
