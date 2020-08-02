@@ -50,9 +50,9 @@ public class Transaction {
 
     public static Transaction fromDto(TransactionDto transactionDto) {
         return new Transaction(
-                transactionDto.getTransactionId,
+                transactionDto.getTransactionId(),
                 transactionDto.getTotalPrice(),
                 transactionDto.getTransactionInformation(),
-                transactionDto.getProducts);
+                transactionDto.getProducts());
     }
 }
