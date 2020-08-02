@@ -20,7 +20,7 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(CreateTransactionRequest request) {
-        return null;
+        return Transaction.fromRequest(request);
     }
 
     public void replaceTransaction(Long id) {
