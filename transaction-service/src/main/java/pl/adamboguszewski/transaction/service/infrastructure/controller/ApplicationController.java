@@ -56,7 +56,7 @@ public class ApplicationController {
 
     @PostMapping("/transaction-service/api/")
     public CreateTransactionResponse createTransaction(CreateTransactionRequest request) {
-        return transactionService.createTransaction(request);
+        return null;
     }
 
     @PutMapping("/transaction-service/api/{id}")

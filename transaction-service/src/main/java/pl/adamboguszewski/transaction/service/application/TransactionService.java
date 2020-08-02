@@ -19,7 +19,7 @@ public class TransactionService {
         return null;
     }
 
-    public CreateTransactionResponse createTransaction(CreateTransactionRequest request) {
+    public Transaction createTransaction(CreateTransactionRequest request) {
         return null;
     }
 
