@@ -62,12 +62,12 @@ public class ApplicationController {
     @PutMapping("/transaction-service/api/{id}")
     public String replaceTransaction(@PathVariable Long id) {
         transactionService.replaceTransaction(id);
-        return "200";
+        return "Replaced transaction with id " + id;
     }
 
     @DeleteMapping("transaction-service/api/{id}")
     public String deleteTransaction(@PathVariable Long id) {
         transactionService.deleteTransaction(id);
-        return "200";
+        return "Deleted transaction with id " + id;
     }
 }
