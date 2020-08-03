@@ -32,27 +32,20 @@ public class Transaction {
         this.transactionInformation = transactionInformation;
     }
 
-    public static Transaction fromRequest(CreateTransactionRequest request) {
-        TransactionInformation transactionInformation = TransactionInformation.fromRequest(request.getTransactionInformation());
+    public static Transaction fromDto(TransactionDto dto) {
+        TransactionInformation transactionInformation =
+                TransactionDto.TransactionInformationDto.fromDto(dto.getTransactionInformationDto());
 
-        List<TransactionProduct> products = request.getProducts()
+        List<TransactionProduct> products = dto.getProducts()
                 .stream()
-                .map(TransactionProduct::fromRequest)
+                .map(TransactionDto.TransactionProductDto::fromDto)
                 .collect(Collectors.toList());
 
         return new Transaction(
-                request.getTransactionId(),
-                request.getTotalPrice(),
+                dto.getTransactionId(),
+                dto.getTotalPrice(),
                 transactionInformation,
                 products
         );
-    }
-
-    public static Transaction fromDto(TransactionDto transactionDto) {
-        return new Transaction(
-                transactionDto.getTransactionId(),
-                transactionDto.getTotalPrice(),
-                transactionDto.getTransactionInformation(),
-                transactionDto.getProducts());
     }
 }
