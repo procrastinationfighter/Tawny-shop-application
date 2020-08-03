@@ -3,9 +3,15 @@ package pl.adamboguszewski.transaction.service.infrastructure.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionFailureResponse;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionResponse;
+import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionSuccessResponse;
+import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
+import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
@@ -52,7 +58,14 @@ public class TransactionController {
 
     @PostMapping("/transaction-service/api/")
     public CreateTransactionResponse createTransaction(CreateTransactionRequest request) {
-        return null;
+        Optional<Transaction> transaction = transactionService.createTransaction(TransactionDto.fromRequest(request));
+        if(transaction.isPresent()) {
+            return new CreateTransactionSuccessResponse(transaction.get().getId());
+        }
+        else {
+            // [TODO]: Create method for processing errors (exceptions?)
+            return new CreateTransactionFailureResponse("Creating was not successful.", 2137L);
+        }
     }
 
     @PutMapping("/transaction-service/api/{id}")
