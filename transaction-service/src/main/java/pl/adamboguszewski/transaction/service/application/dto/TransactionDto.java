@@ -1,11 +1,11 @@
 package pl.adamboguszewski.transaction.service.application.dto;
 
 import lombok.Value;
+import pl.adamboguszewski.transaction.service.api.Currency;
+import pl.adamboguszewski.transaction.service.api.PaymentType;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
-import pl.adamboguszewski.transaction.service.application.Transaction;
-import pl.adamboguszewski.transaction.service.application.TransactionInformation;
-import pl.adamboguszewski.transaction.service.application.TransactionProduct;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -17,26 +17,27 @@ public class TransactionDto {
 
     Long totalPrice;
 
-    TransactionInformation transactionInformation;
+    TransactionInformationDto transactionInformationDto;
 
-    List<TransactionProduct> products;
+    List<TransactionProductDto> products;
 
     private TransactionDto(UUID transactionId,
                            Long totalPrice,
-                           TransactionInformation transactionInformation,
-                           List<TransactionProduct> products) {
+                           TransactionInformationDto transactionInformationDto,
+                           List<TransactionProductDto> products) {
         this.transactionId = transactionId;
         this.totalPrice = totalPrice;
-        this.transactionInformation = transactionInformation;
+        this.transactionInformationDto = transactionInformationDto;
         this.products = products;
     }
 
     public static TransactionDto fromRequest(CreateTransactionRequest request) {
-        TransactionInformation transactionInformation = TransactionInformation.fromRequest(request.getTransactionInformation());
+        TransactionInformationDto transactionInformation = 
+                TransactionInformationDto.fromRequest(request.getTransactionInformation());
 
-        List<TransactionProduct> products = request.getProducts()
+        List<TransactionProductDto> products = request.getProducts()
                 .stream()
-                .map(TransactionProduct::fromRequest)
+                .map(TransactionProductDto::fromRequest)
                 .collect(Collectors.toList());
 
         return new TransactionDto(
@@ -45,5 +46,45 @@ public class TransactionDto {
                 transactionInformation,
                 products
         );
+    }
+
+    @Value
+    public static class TransactionProductDto {
+        
+        UUID productId;
+        
+        String name;
+        
+        Long price;
+        
+        Long quantity;
+        
+        Long priceMultiplier;
+        
+        String description;
+        
+        String category;
+    }
+    
+    @Value
+    public static class TransactionInformationDto {
+        
+        LocalDateTime transactionDateTime;
+        
+        String checkoutId;
+        
+        List<PaymentInformationDto> paymentInformations;
+
+        @Value
+        public static class PaymentInformationDto {
+            
+            Long amountPaid;
+            
+            Long multiplier;
+            
+            Currency currency;
+            
+            PaymentType paymentType;
+        }
     }
 }
