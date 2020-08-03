@@ -102,6 +102,14 @@ public class TransactionDto {
         
         List<PaymentInformationDto> paymentInformationDtos;
 
+        private TransactionInformationDto(LocalDateTime transactionDateTime,
+                                          String checkoutId,
+                                          List<PaymentInformationDto> paymentInformationDtos) {
+            this.transactionDateTime = transactionDateTime;
+            this.checkoutId = checkoutId;
+            this.paymentInformationDtos = paymentInformationDtos;
+        }
+
         public static TransactionInformationDto fromRequest(CreateTransactionRequest.TransactionInformation request) {
             List<PaymentInformationDto> payments = request.getPaymentInformations()
                     .stream()
