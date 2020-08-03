@@ -65,6 +65,22 @@ public class TransactionDto {
         
         String category;
 
+        private TransactionProductDto(UUID productId,
+                                      String name,
+                                      Long price,
+                                      Long quantity,
+                                      Long priceMultiplier,
+                                      String description,
+                                      String category) {
+            this.productId = productId;
+            this.name = name;
+            this.price = price;
+            this.quantity = quantity;
+            this.priceMultiplier = priceMultiplier;
+            this.description = description;
+            this.category = category;
+        }
+
         public static TransactionProductDto fromRequest(CreateTransactionRequest.TransactionProduct request) {
             return new TransactionProductDto(
                     request.getProductId(),
