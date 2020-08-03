@@ -34,11 +34,11 @@ public class Transaction {
 
     public static Transaction fromDto(TransactionDto dto) {
         TransactionInformation transactionInformation =
-                TransactionDto.TransactionInformationDto.fromDto(dto.getTransactionInformationDto());
+                TransactionInformation.fromDto(dto.getTransactionInformationDto());
 
         List<TransactionProduct> products = dto.getProducts()
                 .stream()
-                .map(TransactionDto.TransactionProductDto::fromDto)
+                .map(TransactionProduct::fromDto)
                 .collect(Collectors.toList());
 
         return new Transaction(
