@@ -46,7 +46,7 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping("/transaction-service/api/")
+    @GetMapping("transaction-service/api/")
     public ResponseEntity getAll() {
         return new ResponseEntity((HttpStatus.OK));
     }
@@ -56,7 +56,7 @@ public class TransactionController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    @PostMapping("/transaction-service/api/")
+    @PostMapping("transaction-service/api/")
     public CreateTransactionResponse createTransaction(CreateTransactionRequest request) {
         Optional<Transaction> transaction = transactionService.createTransaction(TransactionDto.fromRequest(request));
         if(transaction.isPresent()) {
@@ -68,7 +68,7 @@ public class TransactionController {
         }
     }
 
-    @PutMapping("/transaction-service/api/{id}")
+    @PutMapping("transaction-service/api/{id}")
     public ResponseEntity replaceTransaction(@PathVariable Long id) {
         transactionService.replaceTransaction(id);
         return new ResponseEntity(HttpStatus.OK);
