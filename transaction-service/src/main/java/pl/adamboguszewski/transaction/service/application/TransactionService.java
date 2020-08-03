@@ -2,6 +2,7 @@ package pl.adamboguszewski.transaction.service.application;
 
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,8 +20,8 @@ public class TransactionService {
         return Optional.empty();
     }
 
-    public Transaction createTransaction(CreateTransactionRequest request) {
-        return Transaction.fromRequest(request);
+    public Optional<Transaction> createTransaction(TransactionDto dto) {
+        return Optional.of(Transaction.fromDto(dto));
     }
 
     public void replaceTransaction(Long id) {
