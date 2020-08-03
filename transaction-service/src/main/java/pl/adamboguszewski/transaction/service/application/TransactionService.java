@@ -5,6 +5,7 @@ import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionR
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 // [TODO] Fill the details of this class.
 @Service
@@ -14,8 +15,8 @@ public class TransactionService {
         return Collections.emptyList();
     }
 
-    public Transaction getById(Long id) {
-        return null;
+    public Optional<Transaction> getById(Long id) {
+        return Optional.empty();
     }
 
     public Transaction createTransaction(CreateTransactionRequest request) {
