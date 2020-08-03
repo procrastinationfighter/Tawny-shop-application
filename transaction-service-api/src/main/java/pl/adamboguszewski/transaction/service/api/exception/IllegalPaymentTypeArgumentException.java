@@ -1,5 +1,6 @@
 package pl.adamboguszewski.transaction.service.api.exception;
 
+// [TODO]: Add to ExceptionHandler
 public class IllegalPaymentTypeArgumentException extends IllegalArgumentException {
 
     public IllegalPaymentTypeArgumentException(String value) {
