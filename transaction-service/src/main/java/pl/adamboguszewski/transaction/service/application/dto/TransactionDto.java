@@ -132,6 +132,16 @@ public class TransactionDto {
             
             PaymentType paymentType;
 
+            private PaymentInformationDto(Long amountPaid,
+                                          Long multiplier,
+                                          Currency currency,
+                                          PaymentType paymentType) {
+                this.amountPaid = amountPaid;
+                this.multiplier = multiplier;
+                this.currency = currency;
+                this.paymentType = paymentType;
+            }
+
             public static PaymentInformationDto fromRequest(
                     CreateTransactionRequest.TransactionInformation.PaymentInformation request) {
                 return new PaymentInformationDto(
