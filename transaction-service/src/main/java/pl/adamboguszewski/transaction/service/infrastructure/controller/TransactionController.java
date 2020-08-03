@@ -1,9 +1,10 @@
 package pl.adamboguszewski.transaction.service.infrastructure.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionResponse;
-import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
 
 @RestController
@@ -40,18 +41,13 @@ public class TransactionController {
     }
 
     @GetMapping("/transaction-service/api/")
-    public String getAll() {
-        StringBuilder stringBuilder = new StringBuilder();
-        for(Transaction transaction : transactionService.getAll()) {
-            stringBuilder.append(transaction.toString());
-            stringBuilder.append(System.lineSeparator());
-        }
-        return stringBuilder.toString();
+    public ResponseEntity getAll() {
+        return new ResponseEntity((HttpStatus.OK));
     }
 
     @GetMapping("transaction-service/api/{id}")
-    public String getTransactionById(@PathVariable Long id) {
-        return transactionService.getById(id).toString();
+    public ResponseEntity getTransactionById(@PathVariable Long id) {
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("/transaction-service/api/")
@@ -60,14 +56,14 @@ public class TransactionController {
     }
 
     @PutMapping("/transaction-service/api/{id}")
-    public String replaceTransaction(@PathVariable Long id) {
+    public ResponseEntity replaceTransaction(@PathVariable Long id) {
         transactionService.replaceTransaction(id);
-        return "Replaced transaction with id " + id;
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @DeleteMapping("transaction-service/api/{id}")
-    public String deleteTransaction(@PathVariable Long id) {
+    public ResponseEntity deleteTransaction(@PathVariable Long id) {
         transactionService.deleteTransaction(id);
-        return "Deleted transaction with id " + id;
+        return new ResponseEntity(HttpStatus.OK);
     }
 }
