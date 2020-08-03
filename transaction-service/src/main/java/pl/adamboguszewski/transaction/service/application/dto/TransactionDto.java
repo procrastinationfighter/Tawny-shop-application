@@ -64,6 +64,17 @@ public class TransactionDto {
         String description;
         
         String category;
+
+        public static TransactionProductDto fromRequest(CreateTransactionRequest.TransactionProduct request) {
+            return new TransactionProductDto(
+                    request.getProductId(),
+                    request.getName(),
+                    request.getPrice(),
+                    request.getQuantity(),
+                    request.getPriceMultiplier(),
+                    request.getDescription(),
+                    request.getCategory());
+        }
     }
     
     @Value
@@ -73,7 +84,18 @@ public class TransactionDto {
         
         String checkoutId;
         
-        List<PaymentInformationDto> paymentInformations;
+        List<PaymentInformationDto> paymentInformationDtos;
+
+        public static TransactionInformationDto fromRequest(CreateTransactionRequest.TransactionInformation request) {
+            List<PaymentInformationDto> payments = request.getPaymentInformations()
+                    .stream()
+                    .map(PaymentInformationDto::fromRequest)
+                    .collect(Collectors.toList());
+            return new TransactionInformationDto(
+                    request.getTransactionDateTime(),
+                    request.getCheckoutId(),
+                    payments);
+        }
 
         @Value
         public static class PaymentInformationDto {
@@ -85,6 +107,15 @@ public class TransactionDto {
             Currency currency;
             
             PaymentType paymentType;
+
+            public static PaymentInformationDto fromRequest(
+                    CreateTransactionRequest.TransactionInformation.PaymentInformation request) {
+                return new PaymentInformationDto(
+                        request.getAmountPaid(),
+                        request.getMultiplier(),
+                        Currency.fromString(request.getCurrency().getValue()),
+                        PaymentType.fromString(request.getPaymentType().getValue()));
+            }
         }
     }
 }
