@@ -2,6 +2,7 @@ package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Value;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,24 +22,16 @@ public class TransactionInformation {
         this.payments = payments;
     }
 
-//    // immutable object bruh.. Please delete this after read
-//    private void createPaymentsFromRequest(List<CreateTransactionRequest.TransactionInfo.TransactionPayment> requests) {
-//        for(CreateTransactionRequest.TransactionInfo.TransactionPayment paymentRequest
-//                : requests) {
-//            this.payments.add(PaymentInformation.fromRequest(paymentRequest));
-//        }
-//    }
-
-    public static TransactionInformation fromRequest(CreateTransactionRequest.TransactionInformation request) {
+    public static TransactionInformation fromDto(TransactionDto.TransactionInformationDto dto) {
         List<PaymentInformation> payments;
-        payments = request.getPaymentInformations()
+        payments = dto.getPaymentInformationDtos()
                 .stream()
-                .map(PaymentInformation::fromRequest)
+                .map(PaymentInformation::fromDto)
                 .collect(Collectors.toList());
 
         return new TransactionInformation(
-                request.getTransactionDateTime(),
-                request.getCheckoutId(),
+                dto.getTransactionDateTime(),
+                dto.getCheckoutId(),
                 payments
         );
     }
