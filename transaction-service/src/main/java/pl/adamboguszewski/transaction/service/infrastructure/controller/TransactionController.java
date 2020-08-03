@@ -8,7 +8,7 @@ import pl.adamboguszewski.transaction.service.application.TransactionService;
 
 @RestController
 @RequestMapping("/")
-public class ApplicationController {
+public class TransactionController {
 
 //     [TODO]:
 //
@@ -35,7 +35,7 @@ public class ApplicationController {
 
     private final TransactionService transactionService;
 
-    public ApplicationController(TransactionService transactionService) {
+    public TransactionController(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
 
