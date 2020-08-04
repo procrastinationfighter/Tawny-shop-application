@@ -1,7 +1,7 @@
 package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Value;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import java.util.UUID;
 
@@ -31,15 +31,15 @@ public class TransactionProduct {
         this.category = category;
     }
 
-    public static TransactionProduct fromRequest(CreateTransactionRequest.TransactionProduct request) {
+    public static TransactionProduct fromDto(TransactionDto.TransactionProductDto dto) {
         return new TransactionProduct(
-                request.getProductId(),
-                request.getName(),
-                request.getPrice(),
-                request.getQuantity(),
-                request.getPriceMultiplier(),
-                request.getDescription(),
-                request.getCategory()
+                dto.getProductId(),
+                dto.getName(),
+                dto.getPrice(),
+                dto.getQuantity(),
+                dto.getPriceMultiplier(),
+                dto.getDescription(),
+                dto.getCategory()
         );
     }
 }

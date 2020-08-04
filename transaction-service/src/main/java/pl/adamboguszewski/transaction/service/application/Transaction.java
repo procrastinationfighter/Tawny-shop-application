@@ -2,6 +2,7 @@ package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Value;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,17 +32,18 @@ public class Transaction {
         this.transactionInformation = transactionInformation;
     }
 
-    public static Transaction fromRequest(CreateTransactionRequest request) {
-        TransactionInformation transactionInformation = TransactionInformation.fromRequest(request.getTransactionInformation());
+    public static Transaction fromDto(TransactionDto dto) {
+        TransactionInformation transactionInformation =
+                TransactionInformation.fromDto(dto.getTransactionInformationDto());
 
-        List<TransactionProduct> products = request.getProducts()
+        List<TransactionProduct> products = dto.getProducts()
                 .stream()
-                .map(TransactionProduct::fromRequest)
+                .map(TransactionProduct::fromDto)
                 .collect(Collectors.toList());
 
         return new Transaction(
-                request.getTransactionId(),
-                request.getTotalPrice(),
+                dto.getTransactionId(),
+                dto.getTotalPrice(),
                 transactionInformation,
                 products
         );
