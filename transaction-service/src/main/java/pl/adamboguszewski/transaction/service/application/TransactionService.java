@@ -1,14 +1,12 @@
 package pl.adamboguszewski.transaction.service.application;
 
 import org.springframework.stereotype.Service;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-// [TODO] Fill the details of this class.
 @Service
 public class TransactionService {
 
