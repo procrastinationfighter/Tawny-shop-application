@@ -22,8 +22,15 @@ public class TransactionService {
         return Optional.of(Transaction.fromDto(dto));
     }
 
-    public void replaceTransaction(Long id) {
-
+    public Optional<Transaction> updateTransaction(Long id, TransactionDto dto) {
+        Optional<Transaction> transaction = getByTransactionId(id);
+        if(transaction.isPresent()) {
+            // [TODO]: Method for updating already existing transaction.
+            return Optional.empty();
+        }
+        else {
+            return createTransaction(dto);
+        }
     }
 
     public void deleteTransaction(Long id) {

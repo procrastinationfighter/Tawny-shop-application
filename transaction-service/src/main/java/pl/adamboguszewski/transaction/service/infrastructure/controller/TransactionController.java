@@ -30,7 +30,7 @@ public class TransactionController {
 
     @GetMapping("/{id}")
     public ResponseEntity getTransactionById(@PathVariable Long id) {
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     @PostMapping("")
@@ -46,9 +46,14 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity replaceTransaction(@PathVariable Long id) {
-        transactionService.replaceTransaction(id);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity replaceTransaction(@PathVariable Long id, TransactionDto dto) {
+        Optional<Transaction> transaction = transactionService.updateTransaction(id, dto);
+        if(transaction.isPresent()) {
+            return new ResponseEntity(HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity(HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/{id}")
