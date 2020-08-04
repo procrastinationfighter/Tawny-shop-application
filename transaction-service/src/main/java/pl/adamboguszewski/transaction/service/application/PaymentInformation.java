@@ -3,7 +3,7 @@ package pl.adamboguszewski.transaction.service.application;
 import lombok.Value;
 import pl.adamboguszewski.transaction.service.api.Currency;
 import pl.adamboguszewski.transaction.service.api.PaymentType;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 @Value
 public class PaymentInformation {
@@ -21,12 +21,12 @@ public class PaymentInformation {
         this.paymentType = paymentType;
     }
 
-    public static PaymentInformation fromRequest(CreateTransactionRequest.TransactionInformation.PaymentInformation request) {
+    public static PaymentInformation fromDto(TransactionDto.TransactionInformationDto.PaymentInformationDto dto) {
         return new PaymentInformation(
-                request.getAmountPaid(),
-                request.getMultiplier(),
-                Currency.fromString(request.getCurrency().getValue()),
-                PaymentType.fromString(request.getPaymentType().getValue())
+                dto.getAmountPaid(),
+                dto.getMultiplier(),
+                Currency.fromString(dto.getCurrency().getValue()),
+                PaymentType.fromString(dto.getPaymentType().getValue())
         );
     }
 
