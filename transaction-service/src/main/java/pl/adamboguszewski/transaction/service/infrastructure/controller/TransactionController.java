@@ -11,6 +11,7 @@ import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -34,7 +35,7 @@ public class TransactionController {
     }
 
     @PostMapping("")
-    public CreateTransactionResponse createTransaction(CreateTransactionRequest request) {
+    public CreateTransactionResponse createTransaction(@Valid @RequestBody CreateTransactionRequest request) {
         Optional<Transaction> transaction = transactionService.createTransaction(TransactionDto.fromRequest(request));
         if(transaction.isPresent()) {
             return new CreateTransactionSuccessResponse(transaction.get().getId());
