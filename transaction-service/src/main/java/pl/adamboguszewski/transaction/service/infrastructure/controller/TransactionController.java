@@ -30,7 +30,7 @@ public class TransactionController {
 
     @GetMapping("/{id}")
     public ResponseEntity getTransactionById(@PathVariable Long id) {
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @PostMapping("")
