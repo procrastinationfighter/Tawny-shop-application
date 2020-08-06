@@ -1,22 +1,35 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import lombok.Value;
+import lombok.Data;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
+import javax.persistence.*;
 import java.util.UUID;
 
-@Value
+@Entity
+@Data
 public class TransactionProduct {
 
+    @Id
+    @GeneratedValue
     Long id;
 
-    UUID productId;
-    String name;
+    @ManyToOne
+    Transaction transaction;
 
+    @Column
+    UUID productId;
+    @Column
+    String name;
+    @Column
     Long price;
+    @Column
     Long quantity;
+    @Column
     Long priceMultiplier;
+    @Column
     String description;
+    @Column
     String category;
 
     private TransactionProduct(UUID productId, String name, Long price, Long quantity, Long priceMultiplier, String description, String category) {

@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 public class Transaction {
 
     @Id
+    @GeneratedValue
     Long id;
     @Column
     UUID transactionId;
@@ -24,7 +25,7 @@ public class Transaction {
     @OneToOne(mappedBy = "id")
     TransactionInformation transactionInformation;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
     List<TransactionProduct> products;
 
     private Transaction(UUID transactionId,
