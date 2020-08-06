@@ -4,22 +4,27 @@ import lombok.Data;
 
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+@Entity
 @Data
 public class Transaction {
 
     @Id
     Long id;
-
+    @Column
     UUID transactionId;
-
+    @Column
     Long totalPrice;
 
+    @Column
+    @OneToOne(mappedBy = "id")
     TransactionInformation transactionInformation;
+
+    @OneToMany(mappedBy = "id")
     List<TransactionProduct> products;
 
     private Transaction(UUID transactionId,
