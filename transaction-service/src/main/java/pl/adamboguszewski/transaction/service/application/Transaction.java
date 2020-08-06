@@ -1,16 +1,18 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import lombok.Value;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
+import lombok.Data;
+
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
+import javax.persistence.Id;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Value
+@Data
 public class Transaction {
 
+    @Id
     Long id;
 
     UUID transactionId;
