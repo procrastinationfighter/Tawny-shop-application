@@ -22,7 +22,7 @@ public class Transaction {
     Long totalPrice;
 
     @Column
-    @OneToOne(mappedBy = "id")
+    @OneToOne(mappedBy = "transaction")
     TransactionInformation transactionInformation;
 
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL)
