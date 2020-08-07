@@ -59,8 +59,8 @@ public class TransactionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteTransaction(@PathVariable Long id) {
+    public ResponseEntity<Optional<Transaction>> deleteTransaction(@PathVariable Long id) {
         transactionService.deleteTransaction(id);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(Optional.empty(), HttpStatus.OK);
     }
 }
