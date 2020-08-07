@@ -36,14 +36,17 @@ public class TransactionController {
     }
 
     @PostMapping("")
-    public CreateTransactionResponse createTransaction(@Valid @RequestBody CreateTransactionRequest request) {
+    public ResponseEntity<CreateTransactionResponse> createTransaction(@Valid @RequestBody CreateTransactionRequest request) {
         Optional<Transaction> transaction = transactionService.createTransaction(TransactionDto.fromRequest(request));
+        CreateTransactionResponse response;
         if(transaction.isPresent()) {
-            return new CreateTransactionSuccessResponse(transaction.get().getId());
+            response = new CreateTransactionSuccessResponse(transaction.get().getId());
+            return new ResponseEntity<>(response, HttpStatus.CREATED);
         }
         else {
             // [TODO]: Create method for processing errors (exceptions?)
-            return new CreateTransactionFailureResponse("Creating was not successful.", 2137L);
+            response = new CreateTransactionFailureResponse("Creating was not successful.", 2137L);
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
 
