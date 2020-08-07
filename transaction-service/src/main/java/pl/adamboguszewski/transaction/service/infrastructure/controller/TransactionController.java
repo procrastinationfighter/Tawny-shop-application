@@ -12,6 +12,7 @@ import pl.adamboguszewski.transaction.service.application.TransactionService;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -25,8 +26,8 @@ public class TransactionController {
     }
 
     @GetMapping("")
-    public ResponseEntity getAll() {
-        return new ResponseEntity((HttpStatus.OK));
+    public ResponseEntity<List<Transaction>> getAll() {
+        return new ResponseEntity<>(transactionService.getAllTransactions(), (HttpStatus.OK));
     }
 
     @GetMapping("/{id}")
