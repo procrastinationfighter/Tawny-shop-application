@@ -48,13 +48,13 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity replaceTransaction(@PathVariable Long id, TransactionDto dto) {
+    public ResponseEntity<Optional<Transaction>> replaceTransaction(@PathVariable Long id, TransactionDto dto) {
         Optional<Transaction> transaction = transactionService.updateTransaction(id, dto);
         if(transaction.isPresent()) {
-            return new ResponseEntity(HttpStatus.CREATED);
+            return new ResponseEntity<>(transaction, HttpStatus.CREATED);
         }
         else {
-            return new ResponseEntity(HttpStatus.OK);
+            return new ResponseEntity<>(transaction, HttpStatus.OK);
         }
     }
 
