@@ -1,5 +1,7 @@
 package pl.adamboguszewski.transaction.service.application;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
@@ -23,6 +25,12 @@ public class TransactionService {
     https://docs.spring.io/spring-data/jpa/docs/1.5.0.RELEASE/reference/html/jpa.repositories.html
     https://www.baeldung.com/spring-data-repositories
 */
+
+    private final JpaRepository<Transaction, Long> repository;
+
+    public TransactionService(JpaRepository<Transaction, Long> repository) {
+        this.repository = repository;
+    }
 
     public List<Transaction> getAll() {
         return Collections.emptyList();
