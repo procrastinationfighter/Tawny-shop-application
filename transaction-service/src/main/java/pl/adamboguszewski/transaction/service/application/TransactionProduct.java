@@ -11,7 +11,7 @@ import java.util.UUID;
 public class TransactionProduct {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
     @ManyToOne

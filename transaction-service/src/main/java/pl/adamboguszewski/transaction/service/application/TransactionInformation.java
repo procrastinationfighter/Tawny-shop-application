@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class TransactionInformation {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
     @OneToOne(mappedBy = "transactionInformation")

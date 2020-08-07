@@ -5,16 +5,14 @@ import pl.adamboguszewski.transaction.service.api.Currency;
 import pl.adamboguszewski.transaction.service.api.PaymentType;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 @Data
 public class PaymentInformation {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
     @ManyToOne
