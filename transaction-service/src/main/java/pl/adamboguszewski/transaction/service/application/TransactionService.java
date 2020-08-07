@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,15 +31,15 @@ public class TransactionService {
     }
 
     public List<Transaction> getAllTransactions() {
-        return Collections.emptyList();
+        return repository.findAll();
     }
 
     public Optional<Transaction> getByTransactionId(Long id) {
-        return Optional.empty();
+        return repository.findById(id);
     }
 
     public Optional<Transaction> createTransaction(TransactionDto dto) {
-        return Optional.of(Transaction.fromDto(dto));
+        return Optional.of(repository.save(Transaction.fromDto(dto)));
     }
 
     public Optional<Transaction> updateTransaction(Long id, TransactionDto dto) {
@@ -55,6 +54,6 @@ public class TransactionService {
     }
 
     public void deleteTransaction(Long id) {
-
+        repository.deleteById(id);
     }
 }
