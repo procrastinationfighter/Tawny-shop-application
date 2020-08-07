@@ -11,6 +11,7 @@ import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
@@ -34,7 +35,7 @@ public class TransactionController {
     }
 
     @PostMapping("")
-    public CreateTransactionResponse createTransaction(CreateTransactionRequest request) {
+    public CreateTransactionResponse createTransaction(@Valid @RequestBody CreateTransactionRequest request) {
         Optional<Transaction> transaction = transactionService.createTransaction(TransactionDto.fromRequest(request));
         if(transaction.isPresent()) {
             return new CreateTransactionSuccessResponse(transaction.get().getId());
@@ -46,9 +47,14 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity replaceTransaction(@PathVariable Long id) {
-        transactionService.replaceTransaction(id);
-        return new ResponseEntity(HttpStatus.OK);
+    public ResponseEntity replaceTransaction(@PathVariable Long id, TransactionDto dto) {
+        Optional<Transaction> transaction = transactionService.updateTransaction(id, dto);
+        if(transaction.isPresent()) {
+            return new ResponseEntity(HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity(HttpStatus.OK);
+        }
     }
 
     @DeleteMapping("/{id}")

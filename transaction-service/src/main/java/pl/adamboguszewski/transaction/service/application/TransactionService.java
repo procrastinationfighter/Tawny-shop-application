@@ -1,6 +1,5 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
@@ -32,11 +31,11 @@ public class TransactionService {
         this.repository = repository;
     }
 
-    public List<Transaction> getAll() {
+    public List<Transaction> getAllTransactions() {
         return Collections.emptyList();
     }
 
-    public Optional<Transaction> getById(Long id) {
+    public Optional<Transaction> getByTransactionId(Long id) {
         return Optional.empty();
     }
 
@@ -44,8 +43,15 @@ public class TransactionService {
         return Optional.of(Transaction.fromDto(dto));
     }
 
-    public void replaceTransaction(Long id) {
-
+    public Optional<Transaction> updateTransaction(Long id, TransactionDto dto) {
+        Optional<Transaction> transaction = getByTransactionId(id);
+        if(transaction.isPresent()) {
+            // [TODO]: Method for updating already existing transaction.
+            return Optional.empty();
+        }
+        else {
+            return createTransaction(dto);
+        }
     }
 
     public void deleteTransaction(Long id) {
