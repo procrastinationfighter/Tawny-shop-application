@@ -3,6 +3,7 @@ package pl.adamboguszewski.transaction.service.application;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import pl.adamboguszewski.transaction.service.infrastructure.repository.TransactionRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +25,9 @@ public class TransactionService {
     https://www.baeldung.com/spring-data-repositories
 */
 
-    private final JpaRepository<Transaction, Long> repository;
+    private final TransactionRepository repository;
 
-    public TransactionService(JpaRepository<Transaction, Long> repository) {
+    public TransactionService(TransactionRepository repository) {
         this.repository = repository;
     }
 
