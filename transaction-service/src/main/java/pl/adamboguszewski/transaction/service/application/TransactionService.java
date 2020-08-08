@@ -1,6 +1,5 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 import pl.adamboguszewski.transaction.service.infrastructure.repository.TransactionRepository;
@@ -59,13 +58,14 @@ public class TransactionService {
         repository.deleteById(id);
     }
 
-    public List<Transaction> getAllTransactionsOlderThan2Years() {
-        LocalDate twoYearsAgo = LocalDate.now().minusYears(2);
-        return repository.findByTransactionInformation_TransactionDateTime_DateBefore(twoYearsAgo);
+    public List<Transaction> getAllOldTransactions() {
+        final int HOW_MANY_YEARS = 2;
+        LocalDate boundaryDate = LocalDate.now().minusYears(HOW_MANY_YEARS);
+        return repository.findByTransactionInformation_TransactionDateTime_DateBefore(boundaryDate);
     }
 
     public void deleteOldTransactions() {
-        for(Transaction transaction : getAllTransactionsOlderThan2Years()) {
+        for(Transaction transaction : getAllOldTransactions()) {
             deleteTransaction(transaction.getId());
         }
     }
