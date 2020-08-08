@@ -65,6 +65,8 @@ public class TransactionService {
     }
 
     public void deleteOldTransactions() {
-        // [TODO]: Deleting old transactions.
+        for(Transaction transaction : getAllTransactionsOlderThan2Years()) {
+            deleteTransaction(transaction.getId());
+        }
     }
 }
