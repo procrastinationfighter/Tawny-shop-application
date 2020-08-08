@@ -27,7 +27,7 @@ public class PaymentInformation {
     @Column
     PaymentType paymentType;
 
-    public PaymentInformation(Long amountPaid, Long multiplier, Currency currency,
+    private PaymentInformation(Long amountPaid, Long multiplier, Currency currency,
                               PaymentType paymentType) {
         this.amountPaid = amountPaid;
         this.multiplier = multiplier;
