@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 import pl.adamboguszewski.transaction.service.infrastructure.repository.TransactionRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,6 +57,11 @@ public class TransactionService {
 
     public void deleteTransaction(Long id) {
         repository.deleteById(id);
+    }
+
+    public List<Transaction> getAllTransactionsOlderThan2Years() {
+        LocalDate twoYearsAgo = LocalDate.now().minusYears(2);
+        return repository.findByTransactionInformation_TransactionDateTime_DateBefore(twoYearsAgo);
     }
 
     public void deleteOldTransactions() {
