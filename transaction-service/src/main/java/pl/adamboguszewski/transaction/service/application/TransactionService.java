@@ -57,4 +57,8 @@ public class TransactionService {
     public void deleteTransaction(Long id) {
         repository.deleteById(id);
     }
+
+    public void deleteOldTransactions() {
+        // [TODO]: Deleting old transactions.
+    }
 }
