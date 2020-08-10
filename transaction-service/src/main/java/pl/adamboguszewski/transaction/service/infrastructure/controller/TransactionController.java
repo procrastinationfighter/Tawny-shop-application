@@ -31,8 +31,12 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Transaction>> getTransactionById(@PathVariable Long id) {
-        return new ResponseEntity<>(transactionService.getById(id), HttpStatus.OK);
+    public ResponseEntity<Transaction> getTransactionById(@PathVariable Long id) {
+        Optional<Transaction> transaction = transactionService.getById(id);
+        //[TODO] Throw an exception.
+        return transaction.map(value
+                -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(()
+                -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("")
