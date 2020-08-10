@@ -59,9 +59,6 @@ public class TransactionService {
     }
 
     public List<Transaction> getAllOldTransactions() {
-        final int HOW_MANY_YEARS = 2;
-        LocalDate boundaryDate = LocalDate.now().minusYears(HOW_MANY_YEARS);
-
         LocalDateTime date = LocalDateTime.now().minusMonths(24);
         return repository.findByTransactionDateTimeBefore(date);
     }
