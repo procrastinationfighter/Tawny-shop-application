@@ -11,5 +11,6 @@ public interface TransactionRepository<Transaction> {
     Transaction save(Transaction fromDto);
     void deleteById(Long id);
 
+    //[TODO]: Test and check if deleting works.
     List<Transaction> findByTransactionDateTimeBefore(LocalDateTime boundaryDate);
 }
