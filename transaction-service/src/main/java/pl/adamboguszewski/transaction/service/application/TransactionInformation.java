@@ -4,7 +4,6 @@ import lombok.Data;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class TransactionInformation {
     public TransactionInformation() {
     }
 
-    private TransactionInformation(LocalDateTime transactionDateTime, String checkoutId, Set<PaymentInformation> payments) {
+    private TransactionInformation(String checkoutId, Set<PaymentInformation> payments) {
         this.checkoutId = checkoutId;
         this.payments = payments;
     }
@@ -44,7 +43,6 @@ public class TransactionInformation {
                 .collect(Collectors.toSet());
 
         return new TransactionInformation(
-                dto.getTransactionDateTime(),
                 dto.getCheckoutId(),
                 payments
         );

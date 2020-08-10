@@ -21,14 +21,18 @@ public class TransactionDto {
 
     List<TransactionProductDto> products;
 
+    LocalDateTime transactionDateTime;
+
     private TransactionDto(UUID transactionId,
                            Long totalPrice,
                            TransactionInformationDto transactionInformationDto,
-                           List<TransactionProductDto> products) {
+                           List<TransactionProductDto> products,
+                           LocalDateTime transactionDateTime) {
         this.transactionId = transactionId;
         this.totalPrice = totalPrice;
         this.transactionInformationDto = transactionInformationDto;
         this.products = products;
+        this.transactionDateTime = transactionDateTime;
     }
 
     public static TransactionDto fromRequest(CreateTransactionRequest request) {
@@ -44,7 +48,8 @@ public class TransactionDto {
                 request.getTransactionId(),
                 request.getTotalPrice(),
                 transactionInformation,
-                products
+                products,
+                request.getTransactionDateTime()
         );
     }
 
@@ -96,16 +101,12 @@ public class TransactionDto {
     @Value
     public static class TransactionInformationDto {
         
-        LocalDateTime transactionDateTime;
-        
         String checkoutId;
         
         List<PaymentInformationDto> paymentInformationDtos;
 
-        private TransactionInformationDto(LocalDateTime transactionDateTime,
-                                          String checkoutId,
+        private TransactionInformationDto(String checkoutId,
                                           List<PaymentInformationDto> paymentInformationDtos) {
-            this.transactionDateTime = transactionDateTime;
             this.checkoutId = checkoutId;
             this.paymentInformationDtos = paymentInformationDtos;
         }
@@ -116,7 +117,6 @@ public class TransactionDto {
                     .map(PaymentInformationDto::fromRequest)
                     .collect(Collectors.toList());
             return new TransactionInformationDto(
-                    request.getTransactionDateTime(),
                     request.getCheckoutId(),
                     payments);
         }

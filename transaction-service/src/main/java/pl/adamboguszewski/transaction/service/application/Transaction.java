@@ -68,7 +68,7 @@ public class Transaction {
                 dto.getTotalPrice(),
                 transactionInformation,
                 products,
-                dto.getTransactionInformationDto().getTransactionDateTime() // [TODO]
+                dto.getTransactionDateTime()
         );
     }
 }
