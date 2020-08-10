@@ -70,4 +70,9 @@ public class TransactionController {
         transactionService.deleteTransaction(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    public ResponseEntity<Void> deleteOldTransactions(Long months) {
+        transactionService.deleteOldTransactions(months);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
