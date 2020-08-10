@@ -35,10 +35,10 @@ public class TransactionServiceApplication {
             ).forEach(name -> {
                 List<CreateTransactionRequest.TransactionInformation.PaymentInformation> payments = new ArrayList<>();
                 payments.add(new CreateTransactionRequest.TransactionInformation.PaymentInformation(213L, 1L, Currency.EUR, PaymentType.CARD));
-                CreateTransactionRequest.TransactionInformation information = new CreateTransactionRequest.TransactionInformation(LocalDateTime.now(), "asd", payments);
+                CreateTransactionRequest.TransactionInformation information = new CreateTransactionRequest.TransactionInformation("asd", payments);
                 List<CreateTransactionRequest.TransactionProduct> products = new ArrayList<>();
                 products.add(new CreateTransactionRequest.TransactionProduct(UUID.randomUUID(), "pr", 1L, 1L, 1L, "des", "cat"));
-                TransactionDto createTransactionDto = TransactionDto.fromRequest(new CreateTransactionRequest(UUID.randomUUID(), 2137L, information, products));
+                TransactionDto createTransactionDto = TransactionDto.fromRequest(new CreateTransactionRequest(UUID.randomUUID(), 2137L, information, products, LocalDateTime.now()));
                 transactionService.createTransaction(createTransactionDto);
             });
             transactionService.getAllTransactions().forEach(System.out::println);
