@@ -32,6 +32,9 @@ public class TransactionProduct {
     @Column
     String category;
 
+    public TransactionProduct() {
+    }
+
     private TransactionProduct(UUID productId, String name, Long price, Long quantity, Long priceMultiplier, String description, String category) {
         // [TODO] Temporary solution for assigning id.
         this.id = -1L;

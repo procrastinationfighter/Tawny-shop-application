@@ -2,9 +2,9 @@ package pl.adamboguszewski.transaction.service.application;
 
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
-import pl.adamboguszewski.transaction.service.infrastructure.repository.TransactionRepository;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,18 +25,18 @@ public class TransactionService {
     https://www.baeldung.com/spring-data-repositories
 */
 
-    private final TransactionRepository repository;
+    private final TransactionRepository<Transaction> repository;
 
-    public TransactionService(TransactionRepository repository) {
+    public TransactionService(TransactionRepository<Transaction> repository) {
         this.repository = repository;
     }
 
     public List<Transaction> getAllTransactions() {
-        return repository.findAll();
+        return repository.getAll();
     }
 
-    public Optional<Transaction> getByTransactionId(Long id) {
-        return repository.findById(id);
+    public Optional<Transaction> getById(Long id) {
+        return repository.getById(id);
     }
 
     public Optional<Transaction> createTransaction(TransactionDto dto) {
@@ -44,7 +44,7 @@ public class TransactionService {
     }
 
     public Optional<Transaction> updateTransaction(Long id, TransactionDto dto) {
-        Optional<Transaction> transaction = getByTransactionId(id);
+        Optional<Transaction> transaction = getById(id);
         if(transaction.isPresent()) {
             // [TODO]: Method for updating already existing transaction.
             return Optional.empty();
@@ -61,7 +61,9 @@ public class TransactionService {
     public List<Transaction> getAllOldTransactions() {
         final int HOW_MANY_YEARS = 2;
         LocalDate boundaryDate = LocalDate.now().minusYears(HOW_MANY_YEARS);
-        return repository.findByTransactionInformation_TransactionDateTime_DateBefore(boundaryDate);
+
+        LocalDateTime date = LocalDateTime.now().minusMonths(24);
+        return repository.findByTransactionDateTimeBefore(date);
     }
 
     public void deleteOldTransactions() {

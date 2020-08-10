@@ -32,7 +32,7 @@ public class TransactionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Transaction>> getTransactionById(@PathVariable Long id) {
-        return new ResponseEntity<>(transactionService.getByTransactionId(id), HttpStatus.OK);
+        return new ResponseEntity<>(transactionService.getById(id), HttpStatus.OK);
     }
 
     @PostMapping("")

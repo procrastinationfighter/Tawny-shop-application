@@ -5,7 +5,7 @@ import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -16,29 +16,32 @@ public class TransactionInformation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     Long id;
 
-    @OneToOne(mappedBy = "transactionInformation")
+    @OneToOne
     Transaction transaction;
 
     @Column
-    LocalDateTime transactionDateTime;
-    @Column
     String checkoutId;
 
-    @OneToMany(mappedBy = "transactionInformation", cascade = CascadeType.ALL)
-    List<PaymentInformation> payments;
+    @OneToMany(
+            mappedBy = "transactionInformation",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    Set<PaymentInformation> payments;
 
-    private TransactionInformation(LocalDateTime transactionDateTime, String checkoutId, List<PaymentInformation> payments) {
-        this.transactionDateTime = transactionDateTime;
+    public TransactionInformation() {
+    }
+
+    private TransactionInformation(LocalDateTime transactionDateTime, String checkoutId, Set<PaymentInformation> payments) {
         this.checkoutId = checkoutId;
         this.payments = payments;
     }
 
     public static TransactionInformation fromDto(TransactionDto.TransactionInformationDto dto) {
-        List<PaymentInformation> payments;
-        payments = dto.getPaymentInformationDtos()
+        Set<PaymentInformation> payments = dto.getPaymentInformationDtos()
                 .stream()
                 .map(PaymentInformation::fromDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
         return new TransactionInformation(
                 dto.getTransactionDateTime(),
