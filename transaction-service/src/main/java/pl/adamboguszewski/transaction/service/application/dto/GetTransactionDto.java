@@ -1,6 +1,7 @@
 package pl.adamboguszewski.transaction.service.application.dto;
 
 import lombok.Value;
+import pl.adamboguszewski.transaction.service.api.transaction.GetTransactionSuccessResponse;
 import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionProduct;
 
@@ -43,6 +44,29 @@ public class GetTransactionDto {
                 transaction.getTransactionDateTime());
     }
 
+    public GetTransactionSuccessResponse makeResponse() {
+        List<GetTransactionSuccessResponse.TransactionProduct> products = this.products
+                .stream()
+                .map(this::createResponseProduct)
+                .collect(Collectors.toList());
+
+        return new GetTransactionSuccessResponse(
+                this.transactionId,
+                this.totalPrice,
+                products,
+                this.transactionDateTime);
+    }
+
+    private GetTransactionSuccessResponse.TransactionProduct createResponseProduct(TransactionProductDto product) {
+        return new GetTransactionSuccessResponse.TransactionProduct(
+                product.getProductId(),
+                product.getName(),
+                product.getPrice(),
+                product.getQuantity(),
+                product.getPriceMultiplier(),
+                product.getDescription(),
+                product.getCategory());
+    }
 
     @Value
     public static class TransactionProductDto {

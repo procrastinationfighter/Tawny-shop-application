@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @Value
 public class GetTransactionSuccessResponse implements GetTransactionResponse {
+
     UUID transactionId;
 
     Long totalPrice;
@@ -26,7 +27,8 @@ public class GetTransactionSuccessResponse implements GetTransactionResponse {
         this.transactionDateTime = transactionDateTime;
     }
 
-    static class TransactionProduct {
+    public static class TransactionProduct {
+
         UUID productId;
 
         String name;
@@ -42,12 +44,12 @@ public class GetTransactionSuccessResponse implements GetTransactionResponse {
         String category;
 
         public TransactionProduct(UUID productId,
-                                      String name,
-                                      Long price,
-                                      Long quantity,
-                                      Long priceMultiplier,
-                                      String description,
-                                      String category) {
+                                  String name,
+                                  Long price,
+                                  Long quantity,
+                                  Long priceMultiplier,
+                                  String description,
+                                  String category) {
             this.productId = productId;
             this.name = name;
             this.price = price;
