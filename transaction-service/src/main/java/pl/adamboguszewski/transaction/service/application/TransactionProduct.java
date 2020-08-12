@@ -1,13 +1,16 @@
 package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Data
+@Getter
+@NoArgsConstructor
 public class TransactionProduct {
 
     @Id
@@ -32,30 +35,15 @@ public class TransactionProduct {
     @Column
     String category;
 
-    public TransactionProduct() {
+    public TransactionProduct(TransactionDto.TransactionProductDto dto, Transaction transaction) {
+        this.productId = dto.getProductId();
+        this.name = dto.getName();
+        this.price = dto.getPrice();
+        this.quantity = dto.getQuantity();
+        this.priceMultiplier = dto.getPriceMultiplier();
+        this.description = dto.getDescription();
+        this.category = dto.getCategory();
+        this.transaction = transaction;
     }
 
-    private TransactionProduct(UUID productId, String name, Long price, Long quantity, Long priceMultiplier, String description, String category) {
-        // [TODO] Temporary solution for assigning id.
-        this.id = -1L;
-        this.productId = productId;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.priceMultiplier = priceMultiplier;
-        this.description = description;
-        this.category = category;
-    }
-
-    public static TransactionProduct fromDto(TransactionDto.TransactionProductDto dto) {
-        return new TransactionProduct(
-                dto.getProductId(),
-                dto.getName(),
-                dto.getPrice(),
-                dto.getQuantity(),
-                dto.getPriceMultiplier(),
-                dto.getDescription(),
-                dto.getCategory()
-        );
-    }
 }

@@ -1,6 +1,8 @@
 package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import javax.persistence.*;
@@ -8,7 +10,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Data
+@Getter
+@NoArgsConstructor
 public class TransactionInformation {
 
     @Id
@@ -28,23 +31,16 @@ public class TransactionInformation {
             fetch = FetchType.EAGER)
     Set<PaymentInformation> payments;
 
-    public TransactionInformation() {
+    public TransactionInformation(TransactionDto.TransactionInformationDto dto, Transaction transaction) {
+        this.checkoutId = dto.getCheckoutId();
+        this.payments = getPayments(dto);
+        this.transaction = transaction;
     }
 
-    private TransactionInformation(String checkoutId, Set<PaymentInformation> payments) {
-        this.checkoutId = checkoutId;
-        this.payments = payments;
-    }
-
-    public static TransactionInformation fromDto(TransactionDto.TransactionInformationDto dto) {
-        Set<PaymentInformation> payments = dto.getPaymentInformationDtos()
+    private Set<PaymentInformation> getPayments(TransactionDto.TransactionInformationDto dto) {
+        return dto.getPaymentInformationDtos()
                 .stream()
-                .map(PaymentInformation::fromDto)
+                .map(payment -> new PaymentInformation(payment, this))
                 .collect(Collectors.toSet());
-
-        return new TransactionInformation(
-                dto.getCheckoutId(),
-                payments
-        );
     }
 }

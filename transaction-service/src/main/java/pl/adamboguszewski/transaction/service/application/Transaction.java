@@ -1,6 +1,7 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 
 import javax.persistence.*;
@@ -10,7 +11,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Entity
-@Data
+@Getter
+@NoArgsConstructor
 public class Transaction {
 
     @Id
@@ -37,38 +39,22 @@ public class Transaction {
             fetch = FetchType.EAGER)
     Set<TransactionProduct> products;
 
-    public Transaction() {
+    public Transaction(TransactionDto dto) {
+        this.transactionId = dto.getTransactionId();
+        this.totalPrice = dto.getTotalPrice();
+        this.products = getTransactionProducts(dto);
+        this.transactionInformation = getTransactionInformation(dto);
+        this.transactionDateTime = dto.getTransactionDateTime();
     }
 
-    private Transaction(UUID transactionId,
-                        Long totalPrice,
-                        TransactionInformation transactionInformation,
-                        Set<TransactionProduct> products,
-                        LocalDateTime transactionDateTime) {
-        // [TODO]: Temporary solution for assigning id.
-        this.id = -1L;
-        this.transactionId = transactionId;
-        this.totalPrice = totalPrice;
-        this.products = products;
-        this.transactionInformation = transactionInformation;
-        this.transactionDateTime = transactionDateTime;
+    private TransactionInformation getTransactionInformation(TransactionDto dto) {
+        return new TransactionInformation(dto.getTransactionInformationDto(), this);
     }
 
-    public static Transaction fromDto(TransactionDto dto) {
-        TransactionInformation transactionInformation =
-                TransactionInformation.fromDto(dto.getTransactionInformationDto());
-
-        Set<TransactionProduct> products = dto.getProducts()
+    private Set<TransactionProduct> getTransactionProducts(TransactionDto dto) {
+        return dto.getProducts()
                 .stream()
-                .map(TransactionProduct::fromDto)
+                .map(product -> new TransactionProduct(product, this))
                 .collect(Collectors.toSet());
-
-        return new Transaction(
-                dto.getTransactionId(),
-                dto.getTotalPrice(),
-                transactionInformation,
-                products,
-                dto.getTransactionDateTime()
-        );
     }
 }

@@ -40,7 +40,7 @@ public class TransactionService {
     }
 
     public Optional<Transaction> createTransaction(TransactionDto dto) {
-        return Optional.of(repository.save(Transaction.fromDto(dto)));
+        return Optional.of(repository.save(new Transaction(dto)));
     }
 
     public Optional<Transaction> updateTransaction(Long id, TransactionDto dto) {
