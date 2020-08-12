@@ -1,6 +1,5 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
