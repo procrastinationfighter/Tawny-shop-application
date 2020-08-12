@@ -16,7 +16,8 @@ import java.util.stream.Collectors;
 public class Transaction {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "transaction_gen", allocationSize = 1)
+    @GeneratedValue(generator = "transaction_gen", strategy = GenerationType.SEQUENCE)
     Long id;
     @Column
     UUID transactionId;

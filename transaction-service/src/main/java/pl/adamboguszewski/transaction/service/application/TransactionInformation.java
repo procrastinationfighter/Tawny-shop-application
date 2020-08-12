@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 public class TransactionInformation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "transaction_info_gen", allocationSize = 1)
+    @GeneratedValue(generator = "transaction_info_gen", strategy = GenerationType.SEQUENCE)
     Long id;
 
     @OneToOne

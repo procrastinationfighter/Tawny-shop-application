@@ -13,7 +13,8 @@ import java.util.UUID;
 public class TransactionProduct {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "product_gen", allocationSize = 1)
+    @GeneratedValue(generator = "product_gen", strategy = GenerationType.SEQUENCE)
     Long id;
 
     @ManyToOne

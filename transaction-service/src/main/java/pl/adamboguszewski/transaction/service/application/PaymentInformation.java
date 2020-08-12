@@ -14,7 +14,8 @@ import javax.persistence.*;
 public class PaymentInformation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "payment_gen", allocationSize = 1)
+    @GeneratedValue(generator = "payment_gen", strategy = GenerationType.SEQUENCE)
     Long id;
 
     @ManyToOne
