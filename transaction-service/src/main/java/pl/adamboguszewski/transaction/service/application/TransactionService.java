@@ -6,6 +6,7 @@ import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class TransactionService {
@@ -20,16 +21,16 @@ public class TransactionService {
         return repository.getAll();
     }
 
-    public Optional<Transaction> getById(Long id) {
-        return repository.getById(id);
+    public Optional<Transaction> getByTransactionId(UUID id) {
+        return repository.getByTransactionId(id);
     }
 
     public Optional<Transaction> createTransaction(TransactionDto dto) {
         return Optional.of(repository.save(new Transaction(dto)));
     }
 
-    public Optional<Transaction> updateTransaction(Long id, TransactionDto dto) {
-        Optional<Transaction> transaction = getById(id);
+    public Optional<Transaction> updateTransaction(UUID id, TransactionDto dto) {
+        Optional<Transaction> transaction = getByTransactionId(id);
         if(transaction.isPresent()) {
             // [TODO]: Method for updating already existing transaction.
             return Optional.empty();

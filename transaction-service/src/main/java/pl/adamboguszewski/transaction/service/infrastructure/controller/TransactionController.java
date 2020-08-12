@@ -14,6 +14,7 @@ import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/transaction-service/api/v1.0")
@@ -31,8 +32,8 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Transaction> getTransactionById(@PathVariable Long id) {
-        Optional<Transaction> transaction = transactionService.getById(id);
+    public ResponseEntity<Transaction> getTransactionByTransactionId(@PathVariable UUID id) {
+        Optional<Transaction> transaction = transactionService.getByTransactionId(id);
         //[TODO] Throw an exception.
         return transaction.map(value
                 -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(()
@@ -55,7 +56,7 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<Transaction>> replaceTransaction(@PathVariable Long id, TransactionDto dto) {
+    public ResponseEntity<Optional<Transaction>> replaceTransaction(@PathVariable UUID id, TransactionDto dto) {
         Optional<Transaction> transaction = transactionService.updateTransaction(id, dto);
         if(transaction.isPresent()) {
             return new ResponseEntity<>(transaction, HttpStatus.CREATED);
