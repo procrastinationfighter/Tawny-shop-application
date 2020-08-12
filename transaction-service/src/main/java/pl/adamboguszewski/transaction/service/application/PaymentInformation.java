@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import pl.adamboguszewski.transaction.service.api.Currency;
 import pl.adamboguszewski.transaction.service.api.PaymentType;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
 import javax.persistence.*;
 
@@ -30,8 +30,8 @@ public class PaymentInformation {
     @Column
     PaymentType paymentType;
 
-    public PaymentInformation(TransactionDto.TransactionInformationDto.PaymentInformationDto dto,
-                               TransactionInformation transactionInformation) {
+    public PaymentInformation(CreateTransactionDto.TransactionInformationDto.PaymentInformationDto dto,
+                              TransactionInformation transactionInformation) {
         this.amountPaid = dto.getAmountPaid();
         this.multiplier = dto.getMultiplier();
         this.currency = dto.getCurrency();

@@ -2,7 +2,7 @@ package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -40,7 +40,7 @@ public class Transaction {
             fetch = FetchType.EAGER)
     Set<TransactionProduct> products;
 
-    public Transaction(TransactionDto dto) {
+    public Transaction(CreateTransactionDto dto) {
         this.transactionId = dto.getTransactionId();
         this.totalPrice = dto.getTotalPrice();
         this.products = getTransactionProducts(dto);
@@ -48,11 +48,11 @@ public class Transaction {
         this.transactionDateTime = dto.getTransactionDateTime();
     }
 
-    private TransactionInformation getTransactionInformation(TransactionDto dto) {
+    private TransactionInformation getTransactionInformation(CreateTransactionDto dto) {
         return new TransactionInformation(dto.getTransactionInformationDto(), this);
     }
 
-    private Set<TransactionProduct> getTransactionProducts(TransactionDto dto) {
+    private Set<TransactionProduct> getTransactionProducts(CreateTransactionDto dto) {
         return dto.getProducts()
                 .stream()
                 .map(product -> new TransactionProduct(product, this))

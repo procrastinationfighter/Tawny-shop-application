@@ -1,7 +1,7 @@
 package pl.adamboguszewski.transaction.service.application;
 
 import org.springframework.stereotype.Service;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,11 +25,11 @@ public class TransactionService {
         return repository.getByTransactionId(id);
     }
 
-    public Optional<Transaction> createTransaction(TransactionDto dto) {
+    public Optional<Transaction> createTransaction(CreateTransactionDto dto) {
         return Optional.of(repository.save(new Transaction(dto)));
     }
 
-    public Optional<Transaction> updateTransaction(UUID id, TransactionDto dto) {
+    public Optional<Transaction> updateTransaction(UUID id, CreateTransactionDto dto) {
         Optional<Transaction> transaction = getByTransactionId(id);
         if(transaction.isPresent()) {
             // [TODO]: Method for updating already existing transaction.

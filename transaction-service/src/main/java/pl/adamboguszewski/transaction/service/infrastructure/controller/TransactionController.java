@@ -9,7 +9,7 @@ import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionR
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionSuccessResponse;
 import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -42,7 +42,7 @@ public class TransactionController {
 
     @PostMapping("")
     public ResponseEntity<CreateTransactionResponse> createTransaction(@Valid @RequestBody CreateTransactionRequest request) {
-        Optional<Transaction> transaction = transactionService.createTransaction(TransactionDto.fromRequest(request));
+        Optional<Transaction> transaction = transactionService.createTransaction(CreateTransactionDto.fromRequest(request));
         CreateTransactionResponse response;
         if(transaction.isPresent()) {
             response = new CreateTransactionSuccessResponse(transaction.get().getId());
@@ -56,7 +56,7 @@ public class TransactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Optional<Transaction>> replaceTransaction(@PathVariable UUID id, TransactionDto dto) {
+    public ResponseEntity<Optional<Transaction>> replaceTransaction(@PathVariable UUID id, CreateTransactionDto dto) {
         Optional<Transaction> transaction = transactionService.updateTransaction(id, dto);
         if(transaction.isPresent()) {
             return new ResponseEntity<>(transaction, HttpStatus.CREATED);

@@ -11,7 +11,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Value
-public class TransactionDto {
+public class CreateTransactionDto {
 
     UUID transactionId;
 
@@ -23,11 +23,11 @@ public class TransactionDto {
 
     LocalDateTime transactionDateTime;
 
-    private TransactionDto(UUID transactionId,
-                           Long totalPrice,
-                           TransactionInformationDto transactionInformationDto,
-                           List<TransactionProductDto> products,
-                           LocalDateTime transactionDateTime) {
+    private CreateTransactionDto(UUID transactionId,
+                                 Long totalPrice,
+                                 TransactionInformationDto transactionInformationDto,
+                                 List<TransactionProductDto> products,
+                                 LocalDateTime transactionDateTime) {
         this.transactionId = transactionId;
         this.totalPrice = totalPrice;
         this.transactionInformationDto = transactionInformationDto;
@@ -35,7 +35,7 @@ public class TransactionDto {
         this.transactionDateTime = transactionDateTime;
     }
 
-    public static TransactionDto fromRequest(CreateTransactionRequest request) {
+    public static CreateTransactionDto fromRequest(CreateTransactionRequest request) {
         TransactionInformationDto transactionInformation = 
                 TransactionInformationDto.fromRequest(request.getTransactionInformation());
 
@@ -44,7 +44,7 @@ public class TransactionDto {
                 .map(TransactionProductDto::fromRequest)
                 .collect(Collectors.toList());
 
-        return new TransactionDto(
+        return new CreateTransactionDto(
                 request.getTransactionId(),
                 request.getTotalPrice(),
                 transactionInformation,

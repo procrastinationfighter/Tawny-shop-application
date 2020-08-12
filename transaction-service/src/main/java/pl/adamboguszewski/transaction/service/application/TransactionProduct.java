@@ -2,7 +2,7 @@ package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -35,7 +35,7 @@ public class TransactionProduct {
     @Column
     String category;
 
-    public TransactionProduct(TransactionDto.TransactionProductDto dto, Transaction transaction) {
+    public TransactionProduct(CreateTransactionDto.TransactionProductDto dto, Transaction transaction) {
         this.productId = dto.getProductId();
         this.name = dto.getName();
         this.price = dto.getPrice();
