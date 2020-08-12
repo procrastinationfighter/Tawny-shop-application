@@ -22,26 +22,4 @@ public class TransactionServiceApplication {
     public static void main(String[] args) {
         SpringApplication.run(TransactionServiceApplication.class, args);
     }
-
-    @Bean
-    CommandLineRunner init(TransactionService transactionService) {
-        return args -> {
-            Stream.of(
-                    UUID.fromString("1234eb1c-a76e-4d74-953e-04838177c24a"),
-                    UUID.fromString("2345eb1c-a76e-4d74-953e-04838177c24a"),
-                    UUID.fromString("3456eb1c-a76e-4d74-953e-04838177c24a"),
-                    UUID.fromString("4567eb1c-a76e-4d74-953e-04838177c24a"),
-                    UUID.fromString("5678eb1c-a76e-4d74-953e-04838177c24a")
-            ).forEach(name -> {
-                List<CreateTransactionRequest.TransactionInformation.PaymentInformation> payments = new ArrayList<>();
-                payments.add(new CreateTransactionRequest.TransactionInformation.PaymentInformation(213L, 1L, Currency.EUR, PaymentType.CARD));
-                CreateTransactionRequest.TransactionInformation information = new CreateTransactionRequest.TransactionInformation("asd", payments);
-                List<CreateTransactionRequest.TransactionProduct> products = new ArrayList<>();
-                products.add(new CreateTransactionRequest.TransactionProduct(UUID.randomUUID(), "pr", 1L, 1L, 1L, "des", "cat"));
-                TransactionDto createTransactionDto = TransactionDto.fromRequest(new CreateTransactionRequest(UUID.randomUUID(), 2137L, information, products, LocalDateTime.now()));
-                transactionService.createTransaction(createTransactionDto);
-            });
-            transactionService.getAllTransactions().forEach(System.out::println);
-        };
-    }
 }
