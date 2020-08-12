@@ -6,6 +6,7 @@ import pl.adamboguszewski.transaction.service.application.TransactionRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class TransactionJpaRepository implements TransactionRepository<Transaction> {
 
@@ -22,6 +23,10 @@ public class TransactionJpaRepository implements TransactionRepository<Transacti
 
     public Optional<Transaction> getById(Long id) {
         return transactionJpaRepositoryDao.findById(id);
+    }
+
+    public Optional<Transaction> getByTransactionId(UUID transactionId) {
+        return transactionJpaRepositoryDao.findByTransactionId(transactionId);
     }
 
     public Transaction save(Transaction transaction) {
