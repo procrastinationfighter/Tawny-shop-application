@@ -57,7 +57,7 @@ public class GetTransactionDto {
                 this.transactionDateTime);
     }
 
-    private GetTransactionSuccessResponse.TransactionProduct createResponseProduct(TransactionProductDto product) {
+    public GetTransactionSuccessResponse.TransactionProduct createResponseProduct(TransactionProductDto product) {
         return new GetTransactionSuccessResponse.TransactionProduct(
                 product.getProductId(),
                 product.getName(),

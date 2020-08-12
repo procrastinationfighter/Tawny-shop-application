@@ -3,18 +3,17 @@ package pl.adamboguszewski.transaction.service.infrastructure.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionFailureResponse;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionResponse;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionSuccessResponse;
+import pl.adamboguszewski.transaction.service.api.transaction.*;
 import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
 import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.GetTransactionDto;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/transaction-service/api/v1.0")
@@ -32,12 +31,31 @@ public class TransactionController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Transaction> getTransactionByTransactionId(@PathVariable UUID id) {
-        Optional<Transaction> transaction = transactionService.getByTransactionId(id);
-        //[TODO] Throw an exception.
-        return transaction.map(value
-                -> new ResponseEntity<>(value, HttpStatus.OK)).orElseGet(()
-                -> new ResponseEntity<>(null, HttpStatus.NOT_FOUND));
+    public ResponseEntity<GetTransactionResponse> getTransactionByTransactionId(@PathVariable UUID id) {
+        Optional<GetTransactionDto> dto = transactionService.getByTransactionId(id);
+        if(dto.isPresent()) {
+            List<GetTransactionSuccessResponse.TransactionProduct> products = dto.get().getProducts()
+                    .stream()
+                    .map(product -> new GetTransactionSuccessResponse.TransactionProduct(
+                            product.getProductId(),
+                            product.getName(),
+                            product.getPrice(),
+                            product.getQuantity(),
+                            product.getPriceMultiplier(),
+                            product.getDescription(),
+                            product.getCategory()))
+                    .collect(Collectors.toList());
+
+            GetTransactionSuccessResponse response =  new GetTransactionSuccessResponse(
+                    dto.get().getTransactionId(),
+                    dto.get().getTotalPrice(),
+                    products,
+                    dto.get().getTransactionDateTime());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("")

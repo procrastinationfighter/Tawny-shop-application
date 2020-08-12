@@ -2,6 +2,7 @@ package pl.adamboguszewski.transaction.service.application;
 
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.GetTransactionDto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,8 +22,10 @@ public class TransactionService {
         return repository.getAll();
     }
 
-    public Optional<Transaction> getByTransactionId(UUID id) {
-        return repository.getByTransactionId(id);
+    public Optional<GetTransactionDto> getByTransactionId(UUID id) {
+        Optional<Transaction> transaction = repository.getByTransactionId(id);
+        // [TODO]: Exception when transaction not found.
+        return transaction.map(GetTransactionDto::fromTransaction);
     }
 
     public Optional<Transaction> createTransaction(CreateTransactionDto dto) {
@@ -30,7 +33,7 @@ public class TransactionService {
     }
 
     public Optional<Transaction> updateTransaction(UUID id, CreateTransactionDto dto) {
-        Optional<Transaction> transaction = getByTransactionId(id);
+        Optional<Transaction> transaction = repository.getByTransactionId(id);
         if(transaction.isPresent()) {
             // [TODO]: Method for updating already existing transaction.
             return Optional.empty();
