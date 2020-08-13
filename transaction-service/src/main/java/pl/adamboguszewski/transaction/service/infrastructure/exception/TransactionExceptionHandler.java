@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.adamboguszewski.transaction.service.api.exception.IllegalCurrencyArgumentException;
 import pl.adamboguszewski.transaction.service.api.exception.IllegalPaymentTypeArgumentException;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionFailureResponse;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionResponse;
-import pl.adamboguszewski.transaction.service.api.transaction.GetTransactionFailureResponse;
-import pl.adamboguszewski.transaction.service.api.transaction.GetTransactionResponse;
+import pl.adamboguszewski.transaction.service.api.transaction.*;
 import pl.adamboguszewski.transaction.service.application.TransactionNotFoundException;
 
 import java.util.Arrays;
@@ -54,10 +51,13 @@ public class TransactionExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Void> handleUnexpectedExceptions(Exception exception) {
+    public ResponseEntity<TransactionServiceFailureResponse> handleUnexpectedExceptions(Exception exception) {
         log.info("Unexpected error occurred.");
         logDetails(exception);
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        //[TODO] Handle error code
+        return new ResponseEntity<>(
+                new TransactionServiceFailureResponse(exception.getMessage(), exception.getLocalizedMessage(), 2137L),
+                HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private void logDetails(Exception exception) {
