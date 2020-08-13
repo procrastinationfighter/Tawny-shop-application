@@ -11,7 +11,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Value
-public class TransactionDto {
+public class CreateTransactionDto {
 
     UUID transactionId;
 
@@ -21,17 +21,21 @@ public class TransactionDto {
 
     List<TransactionProductDto> products;
 
-    private TransactionDto(UUID transactionId,
-                           Long totalPrice,
-                           TransactionInformationDto transactionInformationDto,
-                           List<TransactionProductDto> products) {
+    LocalDateTime transactionDateTime;
+
+    private CreateTransactionDto(UUID transactionId,
+                                 Long totalPrice,
+                                 TransactionInformationDto transactionInformationDto,
+                                 List<TransactionProductDto> products,
+                                 LocalDateTime transactionDateTime) {
         this.transactionId = transactionId;
         this.totalPrice = totalPrice;
         this.transactionInformationDto = transactionInformationDto;
         this.products = products;
+        this.transactionDateTime = transactionDateTime;
     }
 
-    public static TransactionDto fromRequest(CreateTransactionRequest request) {
+    public static CreateTransactionDto fromRequest(CreateTransactionRequest request) {
         TransactionInformationDto transactionInformation = 
                 TransactionInformationDto.fromRequest(request.getTransactionInformation());
 
@@ -40,11 +44,12 @@ public class TransactionDto {
                 .map(TransactionProductDto::fromRequest)
                 .collect(Collectors.toList());
 
-        return new TransactionDto(
+        return new CreateTransactionDto(
                 request.getTransactionId(),
                 request.getTotalPrice(),
                 transactionInformation,
-                products
+                products,
+                request.getTransactionDateTime()
         );
     }
 
@@ -96,16 +101,12 @@ public class TransactionDto {
     @Value
     public static class TransactionInformationDto {
         
-        LocalDateTime transactionDateTime;
-        
         String checkoutId;
         
         List<PaymentInformationDto> paymentInformationDtos;
 
-        private TransactionInformationDto(LocalDateTime transactionDateTime,
-                                          String checkoutId,
+        private TransactionInformationDto(String checkoutId,
                                           List<PaymentInformationDto> paymentInformationDtos) {
-            this.transactionDateTime = transactionDateTime;
             this.checkoutId = checkoutId;
             this.paymentInformationDtos = paymentInformationDtos;
         }
@@ -116,7 +117,6 @@ public class TransactionDto {
                     .map(PaymentInformationDto::fromRequest)
                     .collect(Collectors.toList());
             return new TransactionInformationDto(
-                    request.getTransactionDateTime(),
                     request.getCheckoutId(),
                     payments);
         }

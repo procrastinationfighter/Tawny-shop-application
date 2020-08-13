@@ -21,6 +21,8 @@ public class CreateTransactionRequest {
     CreateTransactionRequest.TransactionInformation transactionInformation;
     @NotNull
     List<TransactionProduct> products;
+    @NotNull
+    LocalDateTime transactionDateTime;
 
     @Value
     public static class TransactionProduct {
@@ -45,8 +47,6 @@ public class CreateTransactionRequest {
     @Value
     public static class TransactionInformation {
 
-        @NotNull
-        LocalDateTime transactionDateTime;
         @NotNull
         String checkoutId;
 

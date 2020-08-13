@@ -1,45 +1,49 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import lombok.Value;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
+import javax.persistence.*;
 import java.util.UUID;
 
-@Value
+@Entity
+@Getter
+@NoArgsConstructor
 public class TransactionProduct {
 
+    @Id
+    @SequenceGenerator(name = "product_gen", allocationSize = 1)
+    @GeneratedValue(generator = "product_gen", strategy = GenerationType.SEQUENCE)
     Long id;
 
-    UUID productId;
-    String name;
+    @ManyToOne
+    Transaction transaction;
 
+    @Column
+    UUID productId;
+    @Column
+    String name;
+    @Column
     Long price;
+    @Column
     Long quantity;
+    @Column
     Long priceMultiplier;
+    @Column
     String description;
+    @Column
     String category;
 
-    private TransactionProduct(UUID productId, String name, Long price, Long quantity, Long priceMultiplier, String description, String category) {
-        // [TODO] Temporary solution for assigning id.
-        this.id = -1L;
-        this.productId = productId;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-        this.priceMultiplier = priceMultiplier;
-        this.description = description;
-        this.category = category;
+    public TransactionProduct(CreateTransactionDto.TransactionProductDto dto, Transaction transaction) {
+        this.productId = dto.getProductId();
+        this.name = dto.getName();
+        this.price = dto.getPrice();
+        this.quantity = dto.getQuantity();
+        this.priceMultiplier = dto.getPriceMultiplier();
+        this.description = dto.getDescription();
+        this.category = dto.getCategory();
+        this.transaction = transaction;
     }
 
-    public static TransactionProduct fromDto(TransactionDto.TransactionProductDto dto) {
-        return new TransactionProduct(
-                dto.getProductId(),
-                dto.getName(),
-                dto.getPrice(),
-                dto.getQuantity(),
-                dto.getPriceMultiplier(),
-                dto.getDescription(),
-                dto.getCategory()
-        );
-    }
 }

@@ -1,51 +1,61 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import lombok.Value;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
-import java.util.List;
+import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Value
+@Entity
+@Getter
+@NoArgsConstructor
 public class Transaction {
 
+    @Id
+    @SequenceGenerator(name = "transaction_gen", allocationSize = 1)
+    @GeneratedValue(generator = "transaction_gen", strategy = GenerationType.SEQUENCE)
     Long id;
-
+    @Column
     UUID transactionId;
-
+    @Column
     Long totalPrice;
+    @Column
+    LocalDateTime transactionDateTime;
 
+//    @Column
+    @OneToOne(
+        mappedBy = "transaction",
+        orphanRemoval = true,
+        cascade = CascadeType.ALL)
     TransactionInformation transactionInformation;
-    List<TransactionProduct> products;
 
-    private Transaction(UUID transactionId,
-                        Long totalPrice,
-                        TransactionInformation transactionInformation,
-                        List<TransactionProduct> products) {
-        // [TODO]: Temporary solution for assigning id.
-        this.id = -1L;
-        this.transactionId = transactionId;
-        this.totalPrice = totalPrice;
-        this.products = products;
-        this.transactionInformation = transactionInformation;
+    @OneToMany(
+            mappedBy = "transaction",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    Set<TransactionProduct> products;
+
+    public Transaction(CreateTransactionDto dto) {
+        this.transactionId = dto.getTransactionId();
+        this.totalPrice = dto.getTotalPrice();
+        this.products = getTransactionProducts(dto);
+        this.transactionInformation = getTransactionInformation(dto);
+        this.transactionDateTime = dto.getTransactionDateTime();
     }
 
-    public static Transaction fromDto(TransactionDto dto) {
-        TransactionInformation transactionInformation =
-                TransactionInformation.fromDto(dto.getTransactionInformationDto());
+    private TransactionInformation getTransactionInformation(CreateTransactionDto dto) {
+        return new TransactionInformation(dto.getTransactionInformationDto(), this);
+    }
 
-        List<TransactionProduct> products = dto.getProducts()
+    private Set<TransactionProduct> getTransactionProducts(CreateTransactionDto dto) {
+        return dto.getProducts()
                 .stream()
-                .map(TransactionProduct::fromDto)
-                .collect(Collectors.toList());
-
-        return new Transaction(
-                dto.getTransactionId(),
-                dto.getTotalPrice(),
-                transactionInformation,
-                products
-        );
+                .map(product -> new TransactionProduct(product, this))
+                .collect(Collectors.toSet());
     }
 }

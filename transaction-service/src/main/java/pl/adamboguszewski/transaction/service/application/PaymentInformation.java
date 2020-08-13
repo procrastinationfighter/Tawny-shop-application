@@ -1,33 +1,41 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import lombok.Value;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import pl.adamboguszewski.transaction.service.api.Currency;
 import pl.adamboguszewski.transaction.service.api.PaymentType;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
-@Value
+import javax.persistence.*;
+
+@Entity
+@Getter
+@NoArgsConstructor
 public class PaymentInformation {
 
+    @Id
+    @SequenceGenerator(name = "payment_gen", allocationSize = 1)
+    @GeneratedValue(generator = "payment_gen", strategy = GenerationType.SEQUENCE)
+    Long id;
+
+    @ManyToOne
+    TransactionInformation transactionInformation;
+
+    @Column
     Long amountPaid;
+    @Column
     Long multiplier;
+    @Column
     Currency currency;
+    @Column
     PaymentType paymentType;
 
-    public PaymentInformation(Long amountPaid, Long multiplier, Currency currency,
-                              PaymentType paymentType) {
-        this.amountPaid = amountPaid;
-        this.multiplier = multiplier;
-        this.currency = currency;
-        this.paymentType = paymentType;
+    public PaymentInformation(CreateTransactionDto.TransactionInformationDto.PaymentInformationDto dto,
+                              TransactionInformation transactionInformation) {
+        this.amountPaid = dto.getAmountPaid();
+        this.multiplier = dto.getMultiplier();
+        this.currency = dto.getCurrency();
+        this.paymentType = dto.getPaymentType();
+        this.transactionInformation = transactionInformation;
     }
-
-    public static PaymentInformation fromDto(TransactionDto.TransactionInformationDto.PaymentInformationDto dto) {
-        return new PaymentInformation(
-                dto.getAmountPaid(),
-                dto.getMultiplier(),
-                Currency.fromString(dto.getCurrency().getValue()),
-                PaymentType.fromString(dto.getPaymentType().getValue())
-        );
-    }
-
 }
