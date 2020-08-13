@@ -22,10 +22,10 @@ public class TransactionService {
         return repository.getAll();
     }
 
-    public Optional<GetTransactionDto> getByTransactionId(UUID id) {
-        Optional<Transaction> transaction = repository.getByTransactionId(id);
-        // [TODO]: Exception when transaction not found.
-        return transaction.map(GetTransactionDto::fromTransaction);
+    public GetTransactionDto getByTransactionId(UUID id) {
+        return GetTransactionDto.fromTransaction(repository
+                .getByTransactionId(id)
+                .orElseThrow(TransactionNotFoundException::new));
     }
 
     public Optional<Transaction> createTransaction(CreateTransactionDto dto) {
@@ -34,11 +34,10 @@ public class TransactionService {
 
     public Optional<Transaction> updateTransaction(UUID id, CreateTransactionDto dto) {
         Optional<Transaction> transaction = repository.getByTransactionId(id);
-        if(transaction.isPresent()) {
+        if (transaction.isPresent()) {
             // [TODO]: Method for updating already existing transaction.
             return Optional.empty();
-        }
-        else {
+        } else {
             return createTransaction(dto);
         }
     }
@@ -48,7 +47,7 @@ public class TransactionService {
     }
 
     public void deleteOldTransactions() {
-        long months = 24L; // [TODO]: properties
+        long months = 24L; // [TODO]: 010-manage-application-properties
         repository.deleteByTransactionDateTimeBefore(LocalDateTime.now().minusMonths(months));
     }
 }
