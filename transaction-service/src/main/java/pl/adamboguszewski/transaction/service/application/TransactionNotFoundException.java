@@ -10,10 +10,10 @@ import java.util.UUID;
 @Value
 public class TransactionNotFoundException extends RuntimeException {
 
-    UUID id;
+    UUID transactionId;
 
-    public TransactionNotFoundException(UUID id) {
-        super("Transaction with id: " + id + " not found.");
-        this.id = id;
+    public TransactionNotFoundException(UUID transactionId) {
+        super("Transaction with id: " + transactionId + " not found.");
+        this.transactionId = transactionId;
     }
 }
