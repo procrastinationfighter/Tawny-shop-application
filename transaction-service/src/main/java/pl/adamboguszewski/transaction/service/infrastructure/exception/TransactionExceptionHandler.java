@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.adamboguszewski.transaction.service.api.exception.IllegalCurrencyArgumentException;
+import pl.adamboguszewski.transaction.service.api.exception.IllegalPaymentTypeArgumentException;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionFailureResponse;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionResponse;
 import pl.adamboguszewski.transaction.service.api.transaction.GetTransactionFailureResponse;
 import pl.adamboguszewski.transaction.service.api.transaction.GetTransactionResponse;
 import pl.adamboguszewski.transaction.service.application.TransactionNotFoundException;
+
+import java.util.Arrays;
 
 @Slf4j
 @ControllerAdvice
@@ -29,10 +32,29 @@ public class TransactionExceptionHandler {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @ExceptionHandler(IllegalCurrencyArgumentException.class)
     public ResponseEntity<CreateTransactionResponse> handle(IllegalCurrencyArgumentException exception) {
-        log.info(exception.getMessage());
+        log.info("Currency " + exception.getCurrency() + " not recognized.");
         //[TODO] Handle error code
         return new ResponseEntity<>(
                 new CreateTransactionFailureResponse(exception.getMessage(), 2137L),
                 HttpStatus.NO_CONTENT);
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ExceptionHandler(IllegalPaymentTypeArgumentException.class)
+    public ResponseEntity<CreateTransactionResponse> handle(IllegalPaymentTypeArgumentException exception) {
+        log.info("Payment type " + exception.getPaymentType() + " not recognized.");
+        //[TODO] Handle error code
+        return new ResponseEntity<>(
+                new CreateTransactionFailureResponse(exception.getMessage(), 2137L),
+                HttpStatus.NO_CONTENT);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Void> handleUnexpectedExceptions(Exception exception) {
+        log.info("Unexpected error occurred.");
+        log.info(exception.getLocalizedMessage());
+        log.info(Arrays.toString(exception.getStackTrace()));
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
