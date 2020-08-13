@@ -1,9 +1,16 @@
 package pl.adamboguszewski.transaction.service.api.exception;
 
-// [TODO]: Add to ExceptionHandler
+import lombok.EqualsAndHashCode;
+import lombok.Value;
+
+@EqualsAndHashCode(callSuper = true)
+@Value
 public class IllegalCurrencyArgumentException extends IllegalArgumentException {
 
-    public IllegalCurrencyArgumentException(String value) {
-        super("Currency named " + value + " does not exist.");
+    String currency;
+
+    public IllegalCurrencyArgumentException(String currency) {
+        super("Currency named " + currency + " does not exist.");
+        this.currency = currency;
     }
 }
