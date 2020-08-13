@@ -1,9 +1,16 @@
 package pl.adamboguszewski.transaction.service.api.exception;
 
-// [TODO]: Add to ExceptionHandler
+import lombok.EqualsAndHashCode;
+import lombok.Value;
+
+@EqualsAndHashCode(callSuper = true)
+@Value
 public class IllegalPaymentTypeArgumentException extends IllegalArgumentException {
 
-    public IllegalPaymentTypeArgumentException(String value) {
-        super("Payment type named " + value + " does not exist.");
+    String paymentType;
+
+    public IllegalPaymentTypeArgumentException(String type) {
+        super("Payment type named " + type + " does not exist.");
+        this.paymentType = type;
     }
 }
