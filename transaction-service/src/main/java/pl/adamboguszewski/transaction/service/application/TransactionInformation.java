@@ -1,38 +1,46 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import lombok.Value;
-import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
-import pl.adamboguszewski.transaction.service.application.dto.TransactionDto;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-@Value
+@Entity
+@Getter
+@NoArgsConstructor
 public class TransactionInformation {
 
-    LocalDateTime transactionDateTime;
+    @Id
+    @SequenceGenerator(name = "transaction_info_gen", allocationSize = 1)
+    @GeneratedValue(generator = "transaction_info_gen", strategy = GenerationType.SEQUENCE)
+    Long id;
+
+    @OneToOne
+    Transaction transaction;
+
+    @Column
     String checkoutId;
 
-    List<PaymentInformation> payments;
+    @OneToMany(
+            mappedBy = "transactionInformation",
+            orphanRemoval = true,
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    Set<PaymentInformation> payments;
 
-    private TransactionInformation(LocalDateTime transactionDateTime, String checkoutId, List<PaymentInformation> payments) {
-        this.transactionDateTime = transactionDateTime;
-        this.checkoutId = checkoutId;
-        this.payments = payments;
+    public TransactionInformation(CreateTransactionDto.TransactionInformationDto dto, Transaction transaction) {
+        this.checkoutId = dto.getCheckoutId();
+        this.payments = getPayments(dto);
+        this.transaction = transaction;
     }
 
-    public static TransactionInformation fromDto(TransactionDto.TransactionInformationDto dto) {
-        List<PaymentInformation> payments;
-        payments = dto.getPaymentInformationDtos()
+    private Set<PaymentInformation> getPayments(CreateTransactionDto.TransactionInformationDto dto) {
+        return dto.getPaymentInformationDtos()
                 .stream()
-                .map(PaymentInformation::fromDto)
-                .collect(Collectors.toList());
-
-        return new TransactionInformation(
-                dto.getTransactionDateTime(),
-                dto.getCheckoutId(),
-                payments
-        );
+                .map(payment -> new PaymentInformation(payment, this))
+                .collect(Collectors.toSet());
     }
 }
