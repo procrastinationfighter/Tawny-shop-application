@@ -35,12 +35,9 @@ public class TransactionJpaRepository implements TransactionRepository<Transacti
 
     public void deleteById(Long id) {
         transactionJpaRepositoryDao.deleteById(id);
-
     }
 
-    @Override
-    public List<Transaction> findByTransactionDateTimeBefore(LocalDateTime date) {
-        return transactionJpaRepositoryDao.findByTransactionDateTimeBefore(date);
+    public void deleteByTransactionDateTimeBefore(LocalDateTime date) {
+        transactionJpaRepositoryDao.deleteByTransactionDateTimeBefore(date);
     }
-
 }

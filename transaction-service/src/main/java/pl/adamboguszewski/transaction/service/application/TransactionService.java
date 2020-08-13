@@ -47,14 +47,8 @@ public class TransactionService {
         repository.deleteById(id);
     }
 
-    public List<Transaction> getAllOldTransactions(Long months) {
-        LocalDateTime date = LocalDateTime.now().minusMonths(months);
-        return repository.findByTransactionDateTimeBefore(date);
-    }
-
-    public void deleteOldTransactions(Long months) {
-        for(Transaction transaction : getAllOldTransactions(months)) {
-            deleteTransaction(transaction.getId());
-        }
+    public void deleteOldTransactions() {
+        long months = 24L; // [TODO]: properties
+        repository.deleteByTransactionDateTimeBefore(LocalDateTime.now().minusMonths(months));
     }
 }
