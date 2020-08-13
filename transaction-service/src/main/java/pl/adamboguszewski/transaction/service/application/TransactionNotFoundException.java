@@ -5,7 +5,6 @@ import lombok.Value;
 
 import java.util.UUID;
 
-// [TODO]:
 @EqualsAndHashCode(callSuper = true)
 @Value
 public class TransactionNotFoundException extends RuntimeException {
@@ -13,6 +12,7 @@ public class TransactionNotFoundException extends RuntimeException {
     UUID transactionId;
 
     public TransactionNotFoundException(UUID transactionId) {
+        //[TODO]: Separate this message and default message.
         super("Transaction with id: " + transactionId + " not found.");
         this.transactionId = transactionId;
     }
