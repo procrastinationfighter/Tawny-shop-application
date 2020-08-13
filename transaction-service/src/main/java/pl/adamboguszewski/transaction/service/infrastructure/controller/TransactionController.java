@@ -31,7 +31,6 @@ public class TransactionController {
         return new ResponseEntity<>(transactionService.getAllTransactions(), (HttpStatus.OK));
     }
 
-    @SneakyThrows
     @GetMapping("/{id}")
     public ResponseEntity<GetTransactionResponse> getTransactionByTransactionId(@PathVariable UUID id) {
         return new ResponseEntity<>(generateGetTransactionResponse(transactionService.getByTransactionId(id)), HttpStatus.OK);
