@@ -27,7 +27,7 @@ public class TransactionExceptionHandler {
                 HttpStatus.NOT_FOUND);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalCurrencyArgumentException.class)
     public ResponseEntity<CreateTransactionResponse> handle(IllegalCurrencyArgumentException exception) {
         log.info("Currency " + exception.getCurrency() + " not recognized.");
@@ -35,10 +35,10 @@ public class TransactionExceptionHandler {
         //[TODO] Handle error code
         return new ResponseEntity<>(
                 new CreateTransactionFailureResponse(exception.getMessage(), 2137L),
-                HttpStatus.NO_CONTENT);
+                HttpStatus.BAD_REQUEST);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalPaymentTypeArgumentException.class)
     public ResponseEntity<CreateTransactionResponse> handle(IllegalPaymentTypeArgumentException exception) {
         log.info("Payment type " + exception.getPaymentType() + " not recognized.");
@@ -46,7 +46,7 @@ public class TransactionExceptionHandler {
         //[TODO] Handle error code
         return new ResponseEntity<>(
                 new CreateTransactionFailureResponse(exception.getMessage(), 2137L),
-                HttpStatus.NO_CONTENT);
+                HttpStatus.BAD_REQUEST);
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
