@@ -1,5 +1,7 @@
 package pl.adamboguszewski.transaction.service.application;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
@@ -33,8 +35,10 @@ public class TransactionService {
     }
 
     public Optional<Transaction> createTransaction(CreateTransactionDto dto) {
+        Gson gsonBuilder = new GsonBuilder().create();
+        String dtoJson = gsonBuilder.toJson(dto);
         log.debug("Creating transaction from given dto: ");
-        log.debug(dto.toString());
+        log.debug(dtoJson);
         return Optional.of(repository.save(new Transaction(dto)));
     }
 
