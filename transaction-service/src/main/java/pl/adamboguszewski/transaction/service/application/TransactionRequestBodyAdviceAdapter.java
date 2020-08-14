@@ -1,11 +1,13 @@
 package pl.adamboguszewski.transaction.service.application;
 
+import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdviceAdapter;
+import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 
@@ -24,8 +26,10 @@ public class TransactionRequestBodyAdviceAdapter extends RequestBodyAdviceAdapte
                                 MethodParameter parameter,
                                 Type targetType,
                                 Class<? extends HttpMessageConverter<?>> converterType) {
+        Gson gsonBuilder = new GsonBuilder().create();
+        String bodyJson = gsonBuilder.toJson(body);
         log.debug("Request received: ");
-        log.debug(body.toString());
+        log.debug(bodyJson);
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
     }
 }
