@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "transaction.months",
+      "type": "java.lang.Long",
+      "description": "Description for transaction.months."
+  }
+] }
