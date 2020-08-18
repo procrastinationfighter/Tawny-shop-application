@@ -24,7 +24,9 @@ public class TransactionService {
 
     public List<Transaction> getAllTransactions() {
         log.debug("Getting all transactions.");
-        return repository.getAll();
+        List<Transaction> transactions = repository.getAll();
+        log.info("Received " + transactions.size() + " transactions.");
+        return transactions;
     }
 
     public GetTransactionDto getByTransactionId(UUID id) {
