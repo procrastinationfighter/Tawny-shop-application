@@ -31,9 +31,11 @@ public class TransactionService {
 
     public GetTransactionDto getByTransactionId(UUID id) {
         log.debug("Getting transaction with id: " + id);
-        return GetTransactionDto.fromTransaction(repository
+        GetTransactionDto transactionDto = GetTransactionDto.fromTransaction(repository
                 .getByTransactionId(id)
                 .orElseThrow(() -> new TransactionNotFoundException(id)));
+        log.info("Received transaction with id " + id);
+        return transactionDto;
     }
 
     public Optional<Transaction> createTransaction(CreateTransactionDto dto) {
