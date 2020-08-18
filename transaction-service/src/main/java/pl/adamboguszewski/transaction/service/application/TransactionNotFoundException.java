@@ -11,9 +11,12 @@ public class TransactionNotFoundException extends RuntimeException {
 
     UUID transactionId;
 
+    String customizedMessage;
+
     public TransactionNotFoundException(UUID transactionId) {
         //[TODO]: Separate this message and default message.
-        super("Transaction with id: " + transactionId + " not found.");
+        super();
         this.transactionId = transactionId;
+        this.customizedMessage = "Transaction with id: " + transactionId + " not found.";
     }
 }
