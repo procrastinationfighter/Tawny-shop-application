@@ -34,7 +34,7 @@ public class TransactionService {
         GetTransactionDto transactionDto = GetTransactionDto.fromTransaction(repository
                 .getByTransactionId(id)
                 .orElseThrow(() -> new TransactionNotFoundException(id)));
-        log.info("Received transaction with id " + id);
+        log.info("Found transaction with id " + id);
         return transactionDto;
     }
 
