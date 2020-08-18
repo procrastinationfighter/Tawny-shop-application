@@ -1,4 +1,4 @@
-package pl.adamboguszewski.transaction.service.application;
+package pl.adamboguszewski.transaction.service.api.exception;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;

@@ -1,4 +1,6 @@
-package pl.adamboguszewski.transaction.service.application;
+package pl.adamboguszewski.transaction.service.api.transaction;
+
+import pl.adamboguszewski.transaction.service.api.exception.IllegalCurrencyArgumentException;
 
 import java.util.Map;
 import java.util.Optional;

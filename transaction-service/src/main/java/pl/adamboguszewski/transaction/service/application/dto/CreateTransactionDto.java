@@ -1,8 +1,8 @@
 package pl.adamboguszewski.transaction.service.application.dto;
 
 import lombok.Value;
-import pl.adamboguszewski.transaction.service.application.Currency;
-import pl.adamboguszewski.transaction.service.application.PaymentType;
+import pl.adamboguszewski.transaction.service.api.transaction.Currency;
+import pl.adamboguszewski.transaction.service.api.transaction.PaymentType;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 
 import java.time.LocalDateTime;

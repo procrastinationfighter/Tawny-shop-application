@@ -2,6 +2,8 @@ package pl.adamboguszewski.transaction.service.application;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import pl.adamboguszewski.transaction.service.api.transaction.Currency;
+import pl.adamboguszewski.transaction.service.api.transaction.PaymentType;
 import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 
 import javax.persistence.*;
