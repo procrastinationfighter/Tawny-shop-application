@@ -1,8 +1,6 @@
 package pl.adamboguszewski.transaction.service.api.transaction;
 
 import lombok.Value;
-import pl.adamboguszewski.transaction.service.api.Currency;
-import pl.adamboguszewski.transaction.service.api.PaymentType;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -60,9 +58,9 @@ public class CreateTransactionRequest {
             @NotNull
             Long multiplier;
             @NotNull
-            Currency currency;
+            String currency;
             @NotNull
-            PaymentType paymentType;
+            String paymentType;
         }
     }
 
