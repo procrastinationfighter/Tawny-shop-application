@@ -28,8 +28,7 @@ public class TransactionRequestBodyAdviceAdapter extends RequestBodyAdviceAdapte
                                 Class<? extends HttpMessageConverter<?>> converterType) {
         Gson gsonBuilder = new GsonBuilder().create();
         String bodyJson = gsonBuilder.toJson(body);
-        log.info("Request received: ");
-        log.info(bodyJson);
+        log.info("Request received: " + bodyJson);
         return super.afterBodyRead(body, inputMessage, parameter, targetType, converterType);
     }
 }
