@@ -5,12 +5,20 @@ import lombok.Value;
 
 @EqualsAndHashCode(callSuper = true)
 @Value
-public class IllegalPaymentTypeArgumentException extends IllegalArgumentException {
+public class IllegalPaymentTypeArgumentException extends IllegalArgumentException implements LogMessage {
 
     String paymentType;
 
+    String customizedMessage;
+
     public IllegalPaymentTypeArgumentException(String type) {
-        super("Payment type named " + type + " does not exist.");
+        super();
         this.paymentType = type;
+        this.customizedMessage = "Payment type named " + type + " does not exist.";
+    }
+
+    @Override
+    public String getCustomizedMessage() {
+        return null;
     }
 }
