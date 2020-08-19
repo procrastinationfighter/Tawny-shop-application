@@ -39,9 +39,7 @@ public class TransactionService {
     }
 
     public Optional<Transaction> createTransaction(CreateTransactionDto dto) {
-        Gson gsonBuilder = new GsonBuilder().create();
-        String dtoJson = gsonBuilder.toJson(dto);
-        log.debug("Creating transaction from given dto: " + dtoJson);
+        log.debug("Creating transaction from given dto: " + new GsonBuilder().create().toJson(dto));
         Optional<Transaction> transaction = Optional.ofNullable(repository.save(new Transaction(dto)));
         if(transaction.isPresent()) {
             log.info("Transaction with id " + dto.getTransactionId() + " created successfully.");
