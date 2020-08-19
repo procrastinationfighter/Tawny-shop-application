@@ -1,4 +1,4 @@
-package pl.adamboguszewski.transaction.service.application;
+package pl.adamboguszewski.transaction.service.infrastructure.config;
 
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
