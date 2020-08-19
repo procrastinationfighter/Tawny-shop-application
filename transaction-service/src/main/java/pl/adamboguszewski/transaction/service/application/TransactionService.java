@@ -1,6 +1,5 @@
 package pl.adamboguszewski.transaction.service.application;
 
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
