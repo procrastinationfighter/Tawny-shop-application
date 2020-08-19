@@ -25,7 +25,7 @@ public class TransactionService {
     public GetTransactionDto getByTransactionId(UUID id) {
         return GetTransactionDto.fromTransaction(repository
                 .getByTransactionId(id)
-                .orElseThrow(TransactionNotFoundException::new));
+                .orElseThrow(() -> new TransactionNotFoundException(id)));
     }
 
     public Optional<Transaction> createTransaction(CreateTransactionDto dto) {

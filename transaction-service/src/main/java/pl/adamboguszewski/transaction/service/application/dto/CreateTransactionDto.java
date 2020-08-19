@@ -1,8 +1,8 @@
 package pl.adamboguszewski.transaction.service.application.dto;
 
 import lombok.Value;
-import pl.adamboguszewski.transaction.service.api.Currency;
-import pl.adamboguszewski.transaction.service.api.PaymentType;
+import pl.adamboguszewski.transaction.service.application.Currency;
+import pl.adamboguszewski.transaction.service.application.PaymentType;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 
 import java.time.LocalDateTime;
@@ -147,8 +147,8 @@ public class CreateTransactionDto {
                 return new PaymentInformationDto(
                         request.getAmountPaid(),
                         request.getMultiplier(),
-                        Currency.fromString(request.getCurrency().getValue()),
-                        PaymentType.fromString(request.getPaymentType().getValue()));
+                        Currency.fromString(request.getCurrency()),
+                        PaymentType.fromString(request.getPaymentType()));
             }
         }
     }
