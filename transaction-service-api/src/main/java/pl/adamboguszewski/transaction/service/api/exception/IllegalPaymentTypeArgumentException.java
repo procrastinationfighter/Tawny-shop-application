@@ -1,11 +1,11 @@
-package pl.adamboguszewski.transaction.service.application;
+package pl.adamboguszewski.transaction.service.api.exception;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @EqualsAndHashCode(callSuper = true)
 @Value
-public class IllegalPaymentTypeArgumentException extends IllegalArgumentException {
+public class IllegalPaymentTypeArgumentException extends IllegalEnumArgumentException {
 
     String paymentType;
 
@@ -13,4 +13,5 @@ public class IllegalPaymentTypeArgumentException extends IllegalArgumentExceptio
         super("Payment type named " + type + " does not exist.");
         this.paymentType = type;
     }
+
 }

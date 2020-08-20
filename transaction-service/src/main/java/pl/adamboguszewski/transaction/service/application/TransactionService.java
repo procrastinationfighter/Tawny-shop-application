@@ -1,5 +1,7 @@
 package pl.adamboguszewski.transaction.service.application;
 
+import com.google.gson.GsonBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 import pl.adamboguszewski.transaction.service.application.dto.GetTransactionDto;
@@ -9,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class TransactionService {
 
@@ -19,35 +22,49 @@ public class TransactionService {
     }
 
     public List<Transaction> getAllTransactions() {
-        return repository.getAll();
+        log.debug("Getting all transactions.");
+        List<Transaction> transactions = repository.getAll();
+        log.info("Received " + transactions.size() + " transactions.");
+        return transactions;
     }
 
     public GetTransactionDto getByTransactionId(UUID id) {
-        return GetTransactionDto.fromTransaction(repository
+        log.debug("Getting transaction with id: " + id);
+        GetTransactionDto transactionDto = GetTransactionDto.fromTransaction(repository
                 .getByTransactionId(id)
                 .orElseThrow(() -> new TransactionNotFoundException(id)));
+        log.info("Found transaction with id " + id);
+        return transactionDto;
     }
 
-    public Optional<Transaction> createTransaction(CreateTransactionDto dto) {
-        return Optional.of(repository.save(new Transaction(dto)));
+    public Transaction createTransaction(CreateTransactionDto dto) {
+        log.debug("Creating transaction from given dto: " + new GsonBuilder().create().toJson(dto));
+        Transaction transaction = repository.save(new Transaction(dto));
+        log.info("Transaction with id " + dto.getTransactionId() + " created successfully.");
+        return transaction;
     }
 
     public Optional<Transaction> updateTransaction(UUID id, CreateTransactionDto dto) {
         Optional<Transaction> transaction = repository.getByTransactionId(id);
         if (transaction.isPresent()) {
+            log.debug("Method with id " + id + " updated.");
             // [TODO]: Method for updating already existing transaction.
             return Optional.empty();
         } else {
-            return createTransaction(dto);
+            log.debug("Method with id " + id + " not found, creating a new transaction.");
+            return Optional.of(createTransaction(dto));
         }
     }
 
     public void deleteTransaction(Long id) {
+        log.debug("Deleting transaction with id " + id);
         repository.deleteById(id);
+        log.info("Transaction with id " + id + " deleted.");
     }
 
     public void deleteOldTransactions() {
         long months = 24L; // [TODO]: 010-manage-application-properties
+        log.debug("Deleting transactions older than " + months + " months");
         repository.deleteByTransactionDateTimeBefore(LocalDateTime.now().minusMonths(months));
     }
 }
