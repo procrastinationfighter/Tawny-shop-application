@@ -6,6 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import pl.adamboguszewski.transaction.service.api.transaction.ModuleInformation;
+
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @RestController
 @RequestMapping("/transaction-service")
@@ -18,8 +22,15 @@ public class DefaultController {
     }
 
     @GetMapping("")
-    public ResponseEntity<Void> getModuleInfo() {
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    public ResponseEntity<ModuleInformation> getModuleInfo() {
+        return new ResponseEntity<>(
+                new ModuleInformation(
+                        buildProperties.getName(),
+                        buildProperties.getArtifact(),
+                        buildProperties.getGroup(),
+                        buildProperties.getVersion(),
+                        LocalDateTime.ofInstant(buildProperties.getTime(), ZoneOffset.UTC)),
+                HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/api")
