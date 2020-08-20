@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
 import pl.adamboguszewski.transaction.service.application.dto.GetTransactionDto;
+import pl.adamboguszewski.transaction.service.infrastructure.config.TransactionConfig;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,8 +18,11 @@ public class TransactionService {
 
     private final TransactionRepository<Transaction> repository;
 
-    public TransactionService(TransactionRepository<Transaction> repository) {
+    private final TransactionConfig transactionConfig;
+
+    public TransactionService(TransactionRepository<Transaction> repository, TransactionConfig transactionConfig) {
         this.repository = repository;
+        this.transactionConfig = transactionConfig;
     }
 
     public List<Transaction> getAllTransactions() {
@@ -63,7 +67,7 @@ public class TransactionService {
     }
 
     public void deleteOldTransactions() {
-        long months = 24L; // [TODO]: 010-manage-application-properties
+        long months = transactionConfig.getMonths();
         log.debug("Deleting transactions older than " + months + " months");
         repository.deleteByTransactionDateTimeBefore(LocalDateTime.now().minusMonths(months));
     }
