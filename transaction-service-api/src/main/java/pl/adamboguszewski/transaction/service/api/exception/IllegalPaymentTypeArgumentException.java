@@ -5,7 +5,7 @@ import lombok.Value;
 
 @EqualsAndHashCode(callSuper = true)
 @Value
-public class IllegalPaymentTypeArgumentException extends IllegalTransactionArgumentException {
+public class IllegalPaymentTypeArgumentException extends IllegalEnumArgumentException {
 
     String paymentType;
 

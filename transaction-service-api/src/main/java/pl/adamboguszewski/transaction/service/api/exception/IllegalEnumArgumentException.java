@@ -3,11 +3,11 @@ package pl.adamboguszewski.transaction.service.api.exception;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = true)
-public abstract class IllegalTransactionArgumentException extends IllegalArgumentException implements LoggingMessageException {
+public abstract class IllegalEnumArgumentException extends IllegalArgumentException implements ApiLoggingMessageException {
 
     private final String customizedMessage;
 
-    public IllegalTransactionArgumentException(String customizedMessage) {
+    public IllegalEnumArgumentException(String customizedMessage) {
         super();
         this.customizedMessage = customizedMessage;
     }
