@@ -37,16 +37,8 @@ public class TransactionController {
 
     @PostMapping("")
     public ResponseEntity<CreateTransactionResponse> createTransaction(@Valid @RequestBody CreateTransactionRequest request) {
-        Optional<Transaction> transaction = transactionService.createTransaction(CreateTransactionDto.fromRequest(request));
-        CreateTransactionResponse response;
-        if (transaction.isPresent()) {
-            response = new CreateTransactionSuccessResponse(transaction.get().getId());
-            return new ResponseEntity<>(response, HttpStatus.CREATED);
-        } else {
-            // [TODO]: Create method for processing errors (exceptions?)
-            response = new CreateTransactionFailureResponse("Creating was not successful.", 2137L);
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-        }
+        Transaction transaction = transactionService.createTransaction(CreateTransactionDto.fromRequest(request));
+        return new ResponseEntity<>(new CreateTransactionSuccessResponse(transaction.getId()), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
