@@ -1,7 +1,6 @@
 package pl.adamboguszewski.transaction.service.api.exception;
 
 import lombok.EqualsAndHashCode;
-import lombok.Value;
 
 @EqualsAndHashCode(callSuper = true)
 public abstract class IllegalTransactionArgumentException extends IllegalArgumentException implements LoggingMessageException {
