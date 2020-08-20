@@ -5,7 +5,7 @@ import lombok.Value;
 
 @EqualsAndHashCode(callSuper = true)
 @Value
-public class IllegalCurrencyArgumentException extends IllegalTransactionArgumentException {
+public class IllegalCurrencyArgumentException extends IllegalEnumArgumentException {
 
     String currency;
 
