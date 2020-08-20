@@ -6,8 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import pl.adamboguszewski.transaction.service.api.exception.IllegalCurrencyArgumentException;
-import pl.adamboguszewski.transaction.service.api.exception.IllegalPaymentTypeArgumentException;
 import pl.adamboguszewski.transaction.service.api.exception.IllegalTransactionArgumentException;
 import pl.adamboguszewski.transaction.service.api.exception.LoggingMessageException;
 import pl.adamboguszewski.transaction.service.api.transaction.*;
@@ -30,7 +28,7 @@ public class TransactionExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalTransactionArgumentException.class)
-    public ResponseEntity<CreateTransactionResponse> handle(IllegalCurrencyArgumentException exception) {
+    public ResponseEntity<CreateTransactionResponse> handle(IllegalTransactionArgumentException exception) {
         logException(exception);
         //[TODO] Handle error code
         return new ResponseEntity<>(
