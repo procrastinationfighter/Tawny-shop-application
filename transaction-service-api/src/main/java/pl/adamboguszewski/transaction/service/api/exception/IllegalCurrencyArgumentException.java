@@ -5,14 +5,12 @@ import lombok.Value;
 
 @EqualsAndHashCode(callSuper = true)
 @Value
-public class IllegalCurrencyArgumentException extends IllegalArgumentException implements LoggingMessageException {
+public class IllegalCurrencyArgumentException extends IllegalTransactionArgumentException {
 
     String currency;
-    String customizedMessage;
 
     public IllegalCurrencyArgumentException(String currency) {
-        super();
+        super("Currency named " + currency + " does not exist.");
         this.currency = currency;
-        this.customizedMessage = "Currency named " + currency + " does not exist.";
     }
 }
