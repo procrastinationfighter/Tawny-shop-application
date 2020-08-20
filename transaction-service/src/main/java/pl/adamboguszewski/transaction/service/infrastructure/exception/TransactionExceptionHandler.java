@@ -21,7 +21,6 @@ public class TransactionExceptionHandler {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     @ExceptionHandler(TransactionNotFoundException.class)
     public ResponseEntity<GetTransactionResponse> handle(TransactionNotFoundException exception) {
-        log.info("Transaction with id " + exception.getTransactionId() + " could not be found in the database.");
         logException(exception);
         return new ResponseEntity<>(
                 new GetTransactionFailureResponse(exception.getTransactionId()),
@@ -31,7 +30,6 @@ public class TransactionExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalCurrencyArgumentException.class)
     public ResponseEntity<CreateTransactionResponse> handle(IllegalCurrencyArgumentException exception) {
-        log.info("Currency " + exception.getCurrency() + " not recognized.");
         logException(exception);
         //[TODO] Handle error code
         return new ResponseEntity<>(
@@ -42,7 +40,6 @@ public class TransactionExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalPaymentTypeArgumentException.class)
     public ResponseEntity<CreateTransactionResponse> handle(IllegalPaymentTypeArgumentException exception) {
-        log.info("Payment type " + exception.getPaymentType() + " not recognized.");
         logException(exception);
         //[TODO] Handle error code
         return new ResponseEntity<>(
