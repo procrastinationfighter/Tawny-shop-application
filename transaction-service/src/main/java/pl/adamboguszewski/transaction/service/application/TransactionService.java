@@ -37,15 +37,10 @@ public class TransactionService {
         return transactionDto;
     }
 
-    public Optional<Transaction> createTransaction(CreateTransactionDto dto) {
+    public Transaction createTransaction(CreateTransactionDto dto) {
         log.debug("Creating transaction from given dto: " + new GsonBuilder().create().toJson(dto));
-        Optional<Transaction> transaction = Optional.ofNullable(repository.save(new Transaction(dto)));
-        if(transaction.isPresent()) {
-            log.info("Transaction with id " + dto.getTransactionId() + " created successfully.");
-        }
-        else {
-            throw new TransactionNotFoundException(dto.getTransactionId());
-        }
+        Transaction transaction = repository.save(new Transaction(dto));
+        log.info("Transaction with id " + dto.getTransactionId() + " created successfully.");
         return transaction;
     }
 
@@ -57,7 +52,7 @@ public class TransactionService {
             return Optional.empty();
         } else {
             log.debug("Method with id " + id + " not found, creating a new transaction.");
-            return createTransaction(dto);
+            return Optional.of(createTransaction(dto));
         }
     }
 
