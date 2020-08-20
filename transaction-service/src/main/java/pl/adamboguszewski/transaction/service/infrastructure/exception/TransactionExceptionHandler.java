@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.adamboguszewski.transaction.service.api.exception.IllegalCurrencyArgumentException;
 import pl.adamboguszewski.transaction.service.api.exception.IllegalPaymentTypeArgumentException;
+import pl.adamboguszewski.transaction.service.api.exception.IllegalTransactionArgumentException;
 import pl.adamboguszewski.transaction.service.api.exception.LoggingMessageException;
 import pl.adamboguszewski.transaction.service.api.transaction.*;
 import pl.adamboguszewski.transaction.service.application.TransactionNotFoundException;
@@ -28,18 +29,8 @@ public class TransactionExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalCurrencyArgumentException.class)
+    @ExceptionHandler(IllegalTransactionArgumentException.class)
     public ResponseEntity<CreateTransactionResponse> handle(IllegalCurrencyArgumentException exception) {
-        logException(exception);
-        //[TODO] Handle error code
-        return new ResponseEntity<>(
-                new CreateTransactionFailureResponse(exception.getMessage(), 2137L),
-                HttpStatus.BAD_REQUEST);
-    }
-
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(IllegalPaymentTypeArgumentException.class)
-    public ResponseEntity<CreateTransactionResponse> handle(IllegalPaymentTypeArgumentException exception) {
         logException(exception);
         //[TODO] Handle error code
         return new ResponseEntity<>(
