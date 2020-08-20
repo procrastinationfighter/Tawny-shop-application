@@ -1,6 +1,6 @@
 package pl.adamboguszewski.transaction.service.api.exception;
 
-public interface LogMessage {
+public interface LoggingMessageException {
 
     String getCustomizedMessage();
     String getLocalizedMessage();

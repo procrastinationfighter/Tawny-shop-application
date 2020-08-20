@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import pl.adamboguszewski.transaction.service.api.exception.IllegalCurrencyArgumentException;
 import pl.adamboguszewski.transaction.service.api.exception.IllegalPaymentTypeArgumentException;
-import pl.adamboguszewski.transaction.service.api.exception.LogMessage;
+import pl.adamboguszewski.transaction.service.api.exception.LoggingMessageException;
 import pl.adamboguszewski.transaction.service.api.transaction.*;
 import pl.adamboguszewski.transaction.service.application.TransactionNotFoundException;
 
@@ -62,7 +62,7 @@ public class TransactionExceptionHandler {
                 HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    private void logException(LogMessage exception) {
+    private void logException(LoggingMessageException exception) {
         log.info(exception.getCustomizedMessage());
         log.info(exception.getLocalizedMessage());
         log.info(Arrays.toString(exception.getStackTrace()));
