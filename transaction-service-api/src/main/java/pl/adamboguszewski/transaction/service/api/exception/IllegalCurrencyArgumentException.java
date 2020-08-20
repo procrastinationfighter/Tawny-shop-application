@@ -1,11 +1,11 @@
-package pl.adamboguszewski.transaction.service.application;
+package pl.adamboguszewski.transaction.service.api.exception;
 
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @EqualsAndHashCode(callSuper = true)
 @Value
-public class IllegalCurrencyArgumentException extends IllegalArgumentException {
+public class IllegalCurrencyArgumentException extends IllegalEnumArgumentException {
 
     String currency;
 
