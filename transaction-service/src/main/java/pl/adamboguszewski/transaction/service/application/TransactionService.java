@@ -44,7 +44,7 @@ public class TransactionService {
             log.info("Transaction with id " + dto.getTransactionId() + " created successfully.");
         }
         else {
-            log.debug("Could not create transaction with id " + dto.getTransactionId());
+            throw new TransactionNotFoundException(dto.getTransactionId());
         }
         return transaction;
     }
