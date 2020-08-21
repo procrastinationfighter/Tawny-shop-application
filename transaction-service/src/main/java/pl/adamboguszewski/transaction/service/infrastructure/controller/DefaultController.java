@@ -27,12 +27,20 @@ public class DefaultController {
                         ", version " + buildProperties.getVersion() +
                         ", group " + buildProperties.getGroup() +
                         " works properly. Build timestamp: " +
-                        LocalDateTime.ofInstant(buildProperties.getTime(), ZoneOffset.UTC),
+                        LocalDateTime.ofInstant(buildProperties.getTime(), ZoneOffset.UTC) +
+                        ". In order to obtain api information, visit transaction-service/api",
                 HttpStatus.OK);
     }
 
     @GetMapping("/api")
-    public ResponseEntity<Void> getApiInfo() {
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+    public ResponseEntity<String> getApiInfo() {
+        return new ResponseEntity<>(
+                "Application " + buildProperties.getName() +
+                        ", version " + buildProperties.getVersion() +
+                        ", group " + buildProperties.getGroup() +
+                        " works properly. Build timestamp: " +
+                        LocalDateTime.ofInstant(buildProperties.getTime(), ZoneOffset.UTC) +
+                        ". In order to obtain service information, visit parent directory.",
+                HttpStatus.OK);
     }
 }
