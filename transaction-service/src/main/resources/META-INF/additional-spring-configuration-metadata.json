@@ -1,8 +1,8 @@
 {
   "properties": [
     {
-      "name": "transaction.months",
+      "name": "app.transaction-service.months-to-expire",
       "type": "java.lang.Long",
-      "description": "Description for transaction.months."
-  }
-] }
+      "description": "Description for app.transaction-service.months-to-expire."
+    }
+  ] }

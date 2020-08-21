@@ -5,9 +5,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ConfigurationProperties(prefix = "transaction")
+@ConfigurationProperties(prefix = "app.transaction-service")
 @Data
 public class TransactionConfig {
 
-    Long months;
+    Long monthsToExpire;
 }

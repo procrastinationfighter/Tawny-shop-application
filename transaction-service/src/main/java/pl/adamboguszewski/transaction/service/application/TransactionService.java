@@ -67,8 +67,8 @@ public class TransactionService {
     }
 
     public void deleteOldTransactions() {
-        long months = transactionConfig.getMonths();
-        log.debug("Deleting transactions older than " + months + " months");
+        long months = transactionConfig.getMonthsToExpire();
+        log.info("Deleting transactions older than " + months + " months");
         repository.deleteByTransactionDateTimeBefore(LocalDateTime.now().minusMonths(months));
     }
 }
