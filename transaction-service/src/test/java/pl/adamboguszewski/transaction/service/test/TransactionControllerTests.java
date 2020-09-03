@@ -41,6 +41,7 @@ public class TransactionControllerTests {
         CreateTransactionRequest request = createSampleCreateRequest();
         Transaction transaction = new Transaction(CreateTransactionDto.fromRequest(request));
 
+        //[TODO]: Move this somewhere else (@BeforeAll won't work since it must be static).
         mapper.registerModule(new JavaTimeModule());
 
         Mockito.when(service.createTransaction(Mockito.any(CreateTransactionDto.class))).thenReturn(transaction);
