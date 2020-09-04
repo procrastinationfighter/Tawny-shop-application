@@ -96,4 +96,10 @@ public class TransactionControllerTests {
         mvc.perform(delete(defaultUrl + "/delete-old-transactions"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void deleteTransactionTest() throws Exception {
+        mvc.perform(delete(defaultUrl + UUID.randomUUID()))
+                .andExpect(status().isOk());
+    }
 }
