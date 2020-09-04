@@ -34,6 +34,8 @@ public class TransactionControllerTests {
 
     private final ObjectMapper mapper = new ObjectMapper();
 
+    private final String defaultUrl = "/transaction-service/api/v1.0/";
+
     @Autowired
     private MockMvc mvc;
 
@@ -47,7 +49,7 @@ public class TransactionControllerTests {
 
         Mockito.when(service.createTransaction(Mockito.any(CreateTransactionDto.class))).thenReturn(transaction);
 
-        mvc.perform(post("/transaction-service/api/v1.0")
+        mvc.perform(post(defaultUrl)
                 .content(mapper.writeValueAsString(request))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -84,8 +86,14 @@ public class TransactionControllerTests {
 
         Mockito.when(service.getByTransactionId(Mockito.any(UUID.class))).thenReturn(dto);
 
-        mvc.perform(get("/transaction-service/api/v1.0/" + transaction.getTransactionId()))
+        mvc.perform(get(defaultUrl + transaction.getTransactionId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalPrice").value(transaction.getTotalPrice()));
+    }
+
+    @Test
+    public void deleteOldTransactionsTest() throws Exception {
+        mvc.perform(delete(defaultUrl + "/delete-old-transactions"))
+                .andExpect(status().isOk());
     }
 }
