@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(TransactionController.class)
 @ExtendWith(MockitoExtension.class)
-public class TransactionControllerTests {
+public class TransactionControllerTest {
 
     @MockBean
     private TransactionService service;
