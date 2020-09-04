@@ -15,6 +15,7 @@ import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionR
 import pl.adamboguszewski.transaction.service.application.Transaction;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
 import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
+import pl.adamboguszewski.transaction.service.application.dto.GetTransactionDto;
 import pl.adamboguszewski.transaction.service.infrastructure.controller.TransactionController;
 
 import java.time.LocalDateTime;
@@ -74,5 +75,17 @@ public class TransactionControllerTests {
                 )),
                 LocalDateTime.now()
         );
+    }
+
+    @Test
+    public void givenId_whenGetTransactionById_thenReturnResponse() throws Exception {
+        Transaction transaction = new Transaction(CreateTransactionDto.fromRequest(createSampleCreateRequest()));
+        GetTransactionDto dto = GetTransactionDto.fromTransaction(transaction);
+
+        Mockito.when(service.getByTransactionId(Mockito.any(UUID.class))).thenReturn(dto);
+
+        mvc.perform(get("/transaction-service/api/v1.0/" + transaction.getTransactionId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalPrice").value(transaction.getTotalPrice()));
     }
 }
