@@ -40,8 +40,8 @@ public class TransactionControllerTest {
     private MockMvc mvc;
 
     @Test
-    public void givenRequest_whenCreateTransaction_thenReturnResponse() throws Exception {
-        CreateTransactionRequest request = createSampleCreateRequest();
+    public void givenValidRequest_whenCreateTransaction_thenReturnResponseCreated() throws Exception {
+        CreateTransactionRequest request = createSampleValidCreateRequest();
         Transaction transaction = new Transaction(CreateTransactionDto.fromRequest(request));
 
         //[TODO]: Move this somewhere else (@BeforeAll won't work since it must be static).
@@ -56,7 +56,7 @@ public class TransactionControllerTest {
                 .andExpect(jsonPath("$.id").value(transaction.getId()));
     }
 
-    private CreateTransactionRequest createSampleCreateRequest() {
+    private CreateTransactionRequest createSampleValidCreateRequest() {
         return new CreateTransactionRequest(
                 UUID.randomUUID(),
                 10000L,
@@ -80,8 +80,44 @@ public class TransactionControllerTest {
     }
 
     @Test
+    public void givenInvalidRequest_whenCreateTransaction_thenReturnResponseBadRequest() throws Exception {
+        CreateTransactionRequest request = createSampleInvalidCreateRequest();
+
+        //[TODO]: Move this somewhere else (@BeforeAll won't work since it must be static).
+        mapper.registerModule(new JavaTimeModule());
+
+        mvc.perform(post(defaultUrl)
+                .content(mapper.writeValueAsString(request))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    private CreateTransactionRequest createSampleInvalidCreateRequest() {
+        return new CreateTransactionRequest(
+                UUID.randomUUID(),
+                10000L,
+                new CreateTransactionRequest.TransactionInformation(
+                        "checkout no. 15",
+                        Collections.singletonList(new CreateTransactionRequest.TransactionInformation.PaymentInformation(
+                                10000L, 1L, "CZK", "card"
+                        ))
+                ),
+                Collections.singletonList(new CreateTransactionRequest.TransactionProduct(
+                        UUID.randomUUID(),
+                        "kubek",
+                        10000L,
+                        1L,
+                        1L,
+                        "do picia",
+                        "naczynie"
+                )),
+                LocalDateTime.now()
+        );
+    }
+
+    @Test
     public void givenId_whenGetTransactionById_thenReturnResponse() throws Exception {
-        Transaction transaction = new Transaction(CreateTransactionDto.fromRequest(createSampleCreateRequest()));
+        Transaction transaction = new Transaction(CreateTransactionDto.fromRequest(createSampleValidCreateRequest()));
         GetTransactionDto dto = GetTransactionDto.fromTransaction(transaction);
 
         Mockito.when(service.getByTransactionId(Mockito.any(UUID.class))).thenReturn(dto);
