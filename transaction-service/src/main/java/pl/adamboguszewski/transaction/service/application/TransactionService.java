@@ -60,9 +60,9 @@ public class TransactionService {
         }
     }
 
-    public void deleteTransaction(Long id) {
+    public void deleteTransaction(UUID id) {
         log.debug("Deleting transaction with id " + id);
-        repository.deleteById(id);
+        repository.deleteByTransactionId(id);
         log.info("Transaction with id " + id + " deleted.");
     }
 

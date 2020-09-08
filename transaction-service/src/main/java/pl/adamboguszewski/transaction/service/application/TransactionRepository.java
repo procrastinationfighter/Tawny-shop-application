@@ -11,7 +11,7 @@ public interface TransactionRepository<Transaction> {
     Optional<Transaction> getById(Long id);
     Optional<Transaction> getByTransactionId(UUID transactionId);
     Transaction save(Transaction fromDto);
-    void deleteById(Long id);
+    void deleteByTransactionId(UUID id);
 
     //[TODO]: Test and check if deleting works.
     void deleteByTransactionDateTimeBefore(LocalDateTime boundaryDate);

@@ -12,5 +12,7 @@ public interface TransactionJpaRepositoryDao extends JpaRepository<Transaction, 
     Optional<Transaction> findById(Long id);
     Optional<Transaction> findByTransactionId(UUID transactionId);
 
+    void deleteByTransactionId(UUID transactionId);
+
     void deleteByTransactionDateTimeBefore(LocalDateTime date);
 }
