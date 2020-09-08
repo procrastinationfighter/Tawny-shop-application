@@ -99,6 +99,7 @@ public class TransactionControllerTest {
 
     @Test
     public void deleteTransactionTest() throws Exception {
+        //[TODO]: Change controller method. It should use UUID instead of Long.
         mvc.perform(delete(defaultUrl + UUID.randomUUID()))
                 .andExpect(status().isOk());
     }
