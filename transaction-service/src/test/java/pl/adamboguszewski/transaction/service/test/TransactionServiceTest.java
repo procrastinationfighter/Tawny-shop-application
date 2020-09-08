@@ -10,6 +10,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import pl.adamboguszewski.transaction.service.api.transaction.CreateTransactionRequest;
 import pl.adamboguszewski.transaction.service.application.Transaction;
+import pl.adamboguszewski.transaction.service.application.TransactionNotFoundException;
 import pl.adamboguszewski.transaction.service.application.TransactionRepository;
 import pl.adamboguszewski.transaction.service.application.TransactionService;
 import pl.adamboguszewski.transaction.service.application.dto.CreateTransactionDto;
@@ -52,6 +53,12 @@ class TransactionServiceTest {
         when(repository.getByTransactionId(any(UUID.class))).thenReturn(Optional.of(transaction));
 
         assertEquals(transaction.getTransactionId(), service.getByTransactionId(transaction.getTransactionId()).getTransactionId());
+    }
+
+    @Test
+    public void givenTransactionId_whenGetByTransactionId_thenThrowException() {
+        when(repository.getByTransactionId(any(UUID.class))).thenReturn(Optional.empty());
+        assertThrows(TransactionNotFoundException.class, () -> service.getByTransactionId(UUID.randomUUID()));
     }
 
     private CreateTransactionDto createSampleCreateDto() {
