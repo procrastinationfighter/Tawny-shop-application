@@ -56,6 +56,43 @@ public class TransactionControllerTest {
                 .andExpect(jsonPath("$.id").value(transaction.getId()));
     }
 
+    @Test
+    public void givenInvalidRequest_whenCreateTransaction_thenReturnResponseBadRequest() throws Exception {
+        CreateTransactionRequest request = createSampleInvalidCreateRequest();
+
+        //[TODO]: Move this somewhere else (@BeforeAll won't work since it must be static).
+        mapper.registerModule(new JavaTimeModule());
+
+        mvc.perform(post(defaultUrl)
+                .content(mapper.writeValueAsString(request))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void givenId_whenGetTransactionById_thenReturnResponse() throws Exception {
+        Transaction transaction = new Transaction(CreateTransactionDto.fromRequest(createSampleValidCreateRequest()));
+        GetTransactionDto dto = GetTransactionDto.fromTransaction(transaction);
+
+        Mockito.when(service.getByTransactionId(Mockito.any(UUID.class))).thenReturn(dto);
+
+        mvc.perform(get(defaultUrl + transaction.getTransactionId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalPrice").value(transaction.getTotalPrice()));
+    }
+
+    @Test
+    public void deleteOldTransactionsTest() throws Exception {
+        mvc.perform(delete(defaultUrl + "/delete-old-transactions"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteTransactionTest() throws Exception {
+        mvc.perform(delete(defaultUrl + UUID.randomUUID()))
+                .andExpect(status().isOk());
+    }
+
     private CreateTransactionRequest createSampleValidCreateRequest() {
         return new CreateTransactionRequest(
                 UUID.randomUUID(),
@@ -79,19 +116,6 @@ public class TransactionControllerTest {
         );
     }
 
-    @Test
-    public void givenInvalidRequest_whenCreateTransaction_thenReturnResponseBadRequest() throws Exception {
-        CreateTransactionRequest request = createSampleInvalidCreateRequest();
-
-        //[TODO]: Move this somewhere else (@BeforeAll won't work since it must be static).
-        mapper.registerModule(new JavaTimeModule());
-
-        mvc.perform(post(defaultUrl)
-                .content(mapper.writeValueAsString(request))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-    }
-
     private CreateTransactionRequest createSampleInvalidCreateRequest() {
         return new CreateTransactionRequest(
                 UUID.randomUUID(),
@@ -113,30 +137,5 @@ public class TransactionControllerTest {
                 )),
                 LocalDateTime.now()
         );
-    }
-
-    @Test
-    public void givenId_whenGetTransactionById_thenReturnResponse() throws Exception {
-        Transaction transaction = new Transaction(CreateTransactionDto.fromRequest(createSampleValidCreateRequest()));
-        GetTransactionDto dto = GetTransactionDto.fromTransaction(transaction);
-
-        Mockito.when(service.getByTransactionId(Mockito.any(UUID.class))).thenReturn(dto);
-
-        mvc.perform(get(defaultUrl + transaction.getTransactionId()))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.totalPrice").value(transaction.getTotalPrice()));
-    }
-
-    @Test
-    public void deleteOldTransactionsTest() throws Exception {
-        mvc.perform(delete(defaultUrl + "/delete-old-transactions"))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void deleteTransactionTest() throws Exception {
-        //[TODO]: Change controller method. It should use UUID instead of Long.
-        mvc.perform(delete(defaultUrl + UUID.randomUUID()))
-                .andExpect(status().isOk());
     }
 }
