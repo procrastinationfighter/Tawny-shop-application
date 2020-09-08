@@ -33,8 +33,8 @@ public class TransactionJpaRepository implements TransactionRepository<Transacti
         return transactionJpaRepositoryDao.save(transaction);
     }
 
-    public void deleteById(Long id) {
-        transactionJpaRepositoryDao.deleteById(id);
+    public void deleteByTransactionId(UUID id) {
+        transactionJpaRepositoryDao.deleteByTransactionId(id);
     }
 
     public void deleteByTransactionDateTimeBefore(LocalDateTime date) {

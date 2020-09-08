@@ -27,6 +27,7 @@ public class GetTransactionSuccessResponse implements GetTransactionResponse {
         this.transactionDateTime = transactionDateTime;
     }
 
+    @Value
     public static class TransactionProduct {
 
         UUID productId;
