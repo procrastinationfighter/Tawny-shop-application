@@ -61,6 +61,8 @@ class TransactionServiceTest {
         assertThrows(TransactionNotFoundException.class, () -> service.getByTransactionId(UUID.randomUUID()));
     }
 
+    //[TODO]: Tests for deleting transactions - currently no idea how to make them.
+
     private CreateTransactionDto createSampleCreateDto() {
         return CreateTransactionDto.fromRequest(createSampleCreateRequest());
     }
