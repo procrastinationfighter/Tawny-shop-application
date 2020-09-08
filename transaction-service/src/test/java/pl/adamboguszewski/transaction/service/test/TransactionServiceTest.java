@@ -19,6 +19,7 @@ import pl.adamboguszewski.transaction.service.infrastructure.repository.Transact
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.Mockito.*;
@@ -42,6 +43,15 @@ class TransactionServiceTest {
         when(repository.save(any(Transaction.class))).thenReturn(new Transaction(dto));
 
         assertEquals(transaction.getTransactionId(), service.createTransaction(dto).getTransactionId());
+    }
+
+    @Test
+    public void givenTransactionId_whenGetByTransactionId_thenReturnTransaction() {
+        Transaction transaction = new Transaction(createSampleCreateDto());
+
+        when(repository.getByTransactionId(any(UUID.class))).thenReturn(Optional.of(transaction));
+
+        assertEquals(transaction.getTransactionId(), service.getByTransactionId(transaction.getTransactionId()).getTransactionId());
     }
 
     private CreateTransactionDto createSampleCreateDto() {
